@@ -1,5 +1,22 @@
+import React, { lazy, Suspense, useContext } from 'react'
+import { AuthContext } from './context/auth-context'
+import FullPageSpinner from './components/full-page-spinner'
+
+const AuthenticatedApp = lazy(() => import('./authenticated-app'))
+const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
+
 function App() {
-    return <h1>gym-client</h1>
+    const authContext = useContext(AuthContext)
+
+    return (
+        <Suspense fallback={<FullPageSpinner />}>
+            {authContext.isAuthenticated() ? (
+                <AuthenticatedApp />
+            ) : (
+                <UnauthenticatedApp />
+            )}
+        </Suspense>
+    )
 }
 
 export default App

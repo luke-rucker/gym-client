@@ -5,8 +5,14 @@
   "author": "Luke Rucker <ruckerlh@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "axios": "^0.21.1",
+    "axios-auth-refresh": "^3.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-query": "^3.5.12",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1"
   },
   "scripts": {
@@ -30,5 +36,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
