@@ -1,13 +1,13 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext } from 'react'
 import axios from 'axios'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
-import { AuthContext } from './auth-context'
+import { useAuth } from './auth-context'
 
 const FetchContext = createContext()
 const { Provider } = FetchContext
 
 function FetchProvider({ children }) {
-    const authContext = useContext(AuthContext)
+    const { getAccessToken, getNewTokenForRequest } = useAuth()
 
     const authAxios = axios.create({
         baseURL: '/api',
@@ -15,7 +15,7 @@ function FetchProvider({ children }) {
 
     authAxios.interceptors.request.use(
         (config) => {
-            config.headers.Authorization = `Bearer ${authContext.getAccessToken()}`
+            config.headers.Authorization = `Bearer ${getAccessToken()}`
             return config
         },
         (error) => {
@@ -23,7 +23,7 @@ function FetchProvider({ children }) {
         }
     )
 
-    createAuthRefreshInterceptor(authAxios, authContext.getNewTokenForRequest, {
+    createAuthRefreshInterceptor(authAxios, getNewTokenForRequest, {
         skipWhileRefreshing: false,
     })
 

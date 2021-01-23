@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import publicAxios from '../util/axios'
 
@@ -37,7 +37,7 @@ function AuthProvider({ children }) {
             localStorage.removeItem('userInfo')
             localStorage.removeItem('expiresAt')
             setAuthState({})
-            history.push('/login')
+            history.push('/sign-in')
         } catch (err) {
             console.log(err)
         }
@@ -97,4 +97,12 @@ function AuthProvider({ children }) {
     )
 }
 
-export { AuthContext, AuthProvider }
+function useAuth() {
+    const context = useContext(AuthContext)
+    if (context === undefined) {
+        throw new Error(`useAuth must be used within a AuthProvider`)
+    }
+    return context
+}
+
+export { AuthContext, AuthProvider, useAuth }

@@ -1,8 +1,9 @@
 import { useQuery } from 'react-query'
 import { Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Alert from '../components/alert'
 import FullPageSpinner from '../components/full-page-spinner'
+import Alert from '../components/alert'
+import AppBar from '../components/app-bar'
 import publicAxios from '../util/axios'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ function Landing() {
 
     const { isLoading, error, data } = useQuery(
         'gymStatus',
-        async () => (await publicAxios.get('/gym/status')).data,
+        () => publicAxios.get('/gym/status').then((response) => response.data),
         {
             retry: false,
         }
@@ -31,12 +32,15 @@ function Landing() {
     }
 
     return (
-        <Container className={classes.content}>
-            <Typography variant="h1">
-                {data.currentCapacity}/{data.maxCapacity} People
-            </Typography>
-            <Typography variant="h2">Are in the Gym</Typography>
-        </Container>
+        <>
+            <AppBar />
+            <Container className={classes.content}>
+                <Typography variant="h1">
+                    {data.currentCapacity}/{data.maxCapacity} People
+                </Typography>
+                <Typography variant="h2">Are in the Gym</Typography>
+            </Container>
+        </>
     )
 }
 
