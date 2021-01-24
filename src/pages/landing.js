@@ -9,6 +9,7 @@ import {
     Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import FullPageSpinner from '../components/full-page-spinner'
 import Alert from '../components/alert'
 import { useAuth } from '../context/auth-context'
@@ -17,6 +18,9 @@ import publicAxios from '../util/axios'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+    },
+    appBarIcon: {
+        marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
@@ -33,6 +37,7 @@ function AppBar() {
     return (
         <MuiAppBar position="static">
             <Toolbar>
+                <FitnessCenterIcon className={classes.appBarIcon} />
                 <Typography variant="h5" className={classes.title}>
                     Jacobs University Gym
                 </Typography>

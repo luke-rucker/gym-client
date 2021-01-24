@@ -9,7 +9,8 @@ import {
     ListItemIcon,
     ListItemText,
 } from '@material-ui/core'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import { useAuth } from '../context/auth-context'
 
 const drawerWidth = 240
@@ -34,13 +35,13 @@ function Drawer() {
     const drawerItems = [
         {
             name: 'Dashboard',
-            icon: <InboxIcon />,
+            icon: <DashboardIcon />,
             onClick: () => history.push('/dashboard'),
             allowedRoles: ['ADVISOR', 'ADMIN'],
         },
         {
             name: 'Admin',
-            icon: <InboxIcon />,
+            icon: <SupervisorAccountIcon />,
             onClick: () => history.push('/admin'),
             allowedRoles: ['ADMIN'],
         },
