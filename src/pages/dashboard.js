@@ -1,5 +1,12 @@
+import AppBar from '../components/app-bar'
+
 function Dashboard() {
-    return <h1>Dashboard</h1>
+    return (
+        <>
+            <AppBar />
+            <h1>Dashboard</h1>
+        </>
+    )
 }
 
 export default Dashboard

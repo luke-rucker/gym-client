@@ -1,21 +1,18 @@
 import React, { createContext, useContext, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import publicAxios from '../util/axios'
 
 const AuthContext = createContext()
 const { Provider } = AuthContext
 
 function AuthProvider({ children }) {
-    const history = useHistory()
-
-    const token = localStorage.getItem('token')
-    const userInfo = localStorage.getItem('userInfo')
-    const expiresAt = localStorage.getItem('expiresAt')
-
-    const [authState, setAuthState] = useState({
-        token,
-        expiresAt,
-        userInfo: userInfo ? JSON.parse(userInfo) : {},
+    const [authState, setAuthState] = useState(() => {
+        return {
+            token: localStorage.getItem('token'),
+            userInfo: localStorage.getItem('userInfo')
+                ? JSON.parse(localStorage.getItem('userInfo'))
+                : {},
+            expiresAt: parseInt(localStorage.getItem('expiresAt')),
+        }
     })
 
     function setAuthInfo({ token, userInfo, expiresAt }) {
@@ -32,14 +29,13 @@ function AuthProvider({ children }) {
 
     async function logout() {
         try {
-            await publicAxios.delete('/token/invalidate')
+            await publicAxios.delete('/auth/token/invalidate')
             localStorage.removeItem('token')
             localStorage.removeItem('userInfo')
             localStorage.removeItem('expiresAt')
             setAuthState({})
-            history.push('/sign-in')
-        } catch (err) {
-            console.log(err)
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -105,4 +101,4 @@ function useAuth() {
     return context
 }
 
-export { AuthContext, AuthProvider, useAuth }
+export { AuthProvider, useAuth }

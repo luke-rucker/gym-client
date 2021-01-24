@@ -39,29 +39,29 @@ const useStyles = makeStyles((theme) => ({
 function SignIn() {
     const classes = useStyles()
     const { setAuthState } = useAuth()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+
     const [isLoading, setIsLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState()
     const [errorMessage, setErrorMessage] = useState()
     const [redirectOnLogin, setRedirectOnLogin] = useState(false)
 
-    async function login() {
+    async function login(event) {
+        event.preventDefault()
         try {
             setIsLoading(true)
+
+            const { email, password } = event.target.elements
             const { data } = await publicAxios.post('/auth/login', {
-                email,
-                password,
+                email: email.value,
+                password: password.value,
             })
 
-            setAuthState(data)
             setIsLoading(false)
+            setAuthState(data)
             setSuccessMessage(data.message)
-            setErrorMessage(null)
+            setErrorMessage('')
 
-            setTimeout(() => {
-                setRedirectOnLogin(true)
-            }, 700)
+            setTimeout(() => setRedirectOnLogin(true), 300)
         } catch (error) {
             setIsLoading(false)
             setErrorMessage(error.response.data.message)
@@ -81,14 +81,7 @@ function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form
-                        className={classes.form}
-                        onSubmit={(e) => {
-                            e.preventDefault()
-                            login()
-                        }}
-                        noValidate
-                    >
+                    <form className={classes.form} onSubmit={login} noValidate>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -98,7 +91,7 @@ function SignIn() {
                             label="Email Address"
                             name="email"
                             autoFocus
-                            onInput={(e) => setEmail(e.target.value)}
+                            // onInput={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -109,7 +102,7 @@ function SignIn() {
                             label="Password"
                             type="password"
                             id="password"
-                            onInput={(e) => setPassword(e.target.value)}
+                            // onInput={(e) => setPassword(e.target.value)}
                         />
                         {successMessage && (
                             <Alert severity="success">{successMessage}</Alert>

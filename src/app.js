@@ -12,11 +12,12 @@ const Admin = lazy(() => import('./pages/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
     const { isAuthenticated } = useAuth()
+
     return (
         <Route
             {...rest}
             render={() =>
-                isAuthenticated() ? { children } : <Redirect to="/sign-in" />
+                isAuthenticated() ? { ...children } : <Redirect to="/sign-in" />
             }
         ></Route>
     )
@@ -24,12 +25,13 @@ function AuthenticatedRoute({ children, ...rest }) {
 
 function AdminRoute({ children, ...rest }) {
     const { isAuthenticated, isAdmin } = useAuth()
+
     return (
         <Route
             {...rest}
             render={() =>
                 isAuthenticated() && isAdmin() ? (
-                    { children }
+                    { ...children }
                 ) : (
                     <Redirect to="/dashboard" />
                 )

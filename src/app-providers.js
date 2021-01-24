@@ -1,6 +1,6 @@
+import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { CssBaseline } from '@material-ui/core'
 
 import { AuthProvider } from './context/auth-context'
@@ -8,8 +8,8 @@ import { FetchProvider } from './context/fetch-context'
 
 function AppProviders({ children }) {
     return (
-        <QueryClientProvider client={new QueryClient()}>
-            <Router>
+        <Router>
+            <QueryClientProvider client={new QueryClient()}>
                 <AuthProvider>
                     <FetchProvider>
                         <CssBaseline />
@@ -17,8 +17,8 @@ function AppProviders({ children }) {
                         <ReactQueryDevtools initialIsOpen={false} />
                     </FetchProvider>
                 </AuthProvider>
-            </Router>
-        </QueryClientProvider>
+            </QueryClientProvider>
+        </Router>
     )
 }
 
