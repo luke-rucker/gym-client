@@ -10,6 +10,7 @@ import Login from './pages/login'
 import FourOFour from './pages/four-o-four'
 
 const Dashboard = lazy(() => import('./pages/dashboard'))
+const Members = lazy(() => import('./pages/members'))
 const Admin = lazy(() => import('./pages/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
@@ -58,6 +59,9 @@ function App() {
                 </Route>
                 <AuthenticatedRoute path="/dashboard">
                     <Dashboard />
+                </AuthenticatedRoute>
+                <AuthenticatedRoute path="/members">
+                    <Members />
                 </AuthenticatedRoute>
                 <AdminRoute path="/admin">
                     <Admin />

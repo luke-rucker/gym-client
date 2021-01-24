@@ -10,10 +10,11 @@ import {
     ListItemText,
 } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
+import GroupIcon from '@material-ui/icons/Group'
+import LockIcon from '@material-ui/icons/Lock'
 import { useAuth } from '../context/auth-context'
 
-const drawerWidth = 240
+const drawerWidth = 180
 
 const useStyles = makeStyles((theme) => ({
     drawer: {
@@ -40,8 +41,14 @@ function Drawer() {
             allowedRoles: ['ADVISOR', 'ADMIN'],
         },
         {
+            name: 'Members',
+            icon: <GroupIcon />,
+            onClick: () => history.push('/members'),
+            allowedRoles: ['ADVISOR', 'ADMIN'],
+        },
+        {
             name: 'Admin',
-            icon: <SupervisorAccountIcon />,
+            icon: <LockIcon />,
             onClick: () => history.push('/admin'),
             allowedRoles: ['ADMIN'],
         },
