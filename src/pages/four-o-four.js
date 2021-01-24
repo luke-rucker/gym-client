@@ -1,3 +1,5 @@
+import React from 'react'
+
 function FourOFour() {
     return <h1>You look lost.</h1>
 }

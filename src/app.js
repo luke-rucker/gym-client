@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { useAuth } from './context/auth-context'
 import FullPageSpinner from './components/full-page-spinner'
 
+import AppShell from './app-shell'
+
 import Landing from './pages/landing'
 import Login from './pages/login'
 import FourOFour from './pages/four-o-four'
@@ -17,7 +19,11 @@ function AuthenticatedRoute({ children, ...rest }) {
         <Route
             {...rest}
             render={() =>
-                isAuthenticated() ? { ...children } : <Redirect to="/login" />
+                isAuthenticated() ? (
+                    <AppShell>{children}</AppShell>
+                ) : (
+                    <Redirect to="/login" />
+                )
             }
         ></Route>
     )
@@ -31,7 +37,7 @@ function AdminRoute({ children, ...rest }) {
             {...rest}
             render={() =>
                 isAuthenticated() && isAdmin() ? (
-                    { ...children }
+                    <AppShell>{children}</AppShell>
                 ) : (
                     <Redirect to="/dashboard" />
                 )

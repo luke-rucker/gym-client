@@ -1,12 +1,7 @@
-import AppBar from '../components/logged-in/app-bar'
+import React from 'react'
 
 function Dashboard() {
-    return (
-        <>
-            <AppBar />
-            <h1>Dashboard</h1>
-        </>
-    )
+    return <h1>Dashboard</h1>
 }
 
 export default Dashboard
