@@ -1,4 +1,4 @@
-import AppBar from '../components/app-bar'
+import AppBar from '../components/logged-in/app-bar'
 
 function Dashboard() {
     return (

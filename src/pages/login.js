@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function SignIn() {
+function Login() {
     const classes = useStyles()
     const { setAuthState } = useAuth()
 
@@ -45,7 +45,7 @@ function SignIn() {
     const [errorMessage, setErrorMessage] = useState()
     const [redirectOnLogin, setRedirectOnLogin] = useState(false)
 
-    async function login(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
         try {
             setIsLoading(true)
@@ -79,9 +79,13 @@ function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Login
                     </Typography>
-                    <form className={classes.form} onSubmit={login} noValidate>
+                    <form
+                        className={classes.form}
+                        onSubmit={handleSubmit}
+                        noValidate
+                    >
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -91,7 +95,6 @@ function SignIn() {
                             label="Email Address"
                             name="email"
                             autoFocus
-                            // onInput={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -102,7 +105,6 @@ function SignIn() {
                             label="Password"
                             type="password"
                             id="password"
-                            // onInput={(e) => setPassword(e.target.value)}
                         />
                         {successMessage && (
                             <Alert severity="success">{successMessage}</Alert>
@@ -117,7 +119,7 @@ function SignIn() {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign In
+                            Login
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -133,4 +135,4 @@ function SignIn() {
     )
 }
 
-export default SignIn
+export default Login

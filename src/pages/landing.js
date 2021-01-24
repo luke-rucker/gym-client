@@ -3,7 +3,7 @@ import { Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import FullPageSpinner from '../components/full-page-spinner'
 import Alert from '../components/alert'
-import AppBar from '../components/app-bar'
+import AppBar from '../components/logged-out/app-bar'
 import publicAxios from '../util/axios'
 
 const useStyles = makeStyles((theme) => ({

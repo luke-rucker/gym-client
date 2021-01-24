@@ -4,7 +4,7 @@ import { useAuth } from './context/auth-context'
 import FullPageSpinner from './components/full-page-spinner'
 
 import Landing from './pages/landing'
-import SignIn from './pages/sign-in'
+import Login from './pages/login'
 import FourOFour from './pages/four-o-four'
 
 const Dashboard = lazy(() => import('./pages/dashboard'))
@@ -17,7 +17,7 @@ function AuthenticatedRoute({ children, ...rest }) {
         <Route
             {...rest}
             render={() =>
-                isAuthenticated() ? { ...children } : <Redirect to="/sign-in" />
+                isAuthenticated() ? { ...children } : <Redirect to="/login" />
             }
         ></Route>
     )
@@ -47,8 +47,8 @@ function App() {
                 <Route exact path="/">
                     <Landing />
                 </Route>
-                <Route path="/sign-in">
-                    <SignIn />
+                <Route path="/login">
+                    <Login />
                 </Route>
                 <AuthenticatedRoute path="/dashboard">
                     <Dashboard />

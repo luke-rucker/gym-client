@@ -1,18 +1,21 @@
 import React, { createContext, useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import publicAxios from '../util/axios'
 
 const AuthContext = createContext()
 const { Provider } = AuthContext
 
 function AuthProvider({ children }) {
-    const [authState, setAuthState] = useState(() => {
-        return {
-            token: localStorage.getItem('token'),
-            userInfo: localStorage.getItem('userInfo')
-                ? JSON.parse(localStorage.getItem('userInfo'))
-                : {},
-            expiresAt: parseInt(localStorage.getItem('expiresAt')),
-        }
+    const history = useHistory()
+
+    const token = localStorage.getItem('token')
+    const userInfo = localStorage.getItem('userInfo')
+    const expiresAt = localStorage.getItem('expiresAt')
+
+    const [authState, setAuthState] = useState({
+        token,
+        userInfo: userInfo ? JSON.parse(userInfo) : {},
+        expiresAt: parseInt(expiresAt),
     })
 
     function setAuthInfo({ token, userInfo, expiresAt }) {
@@ -34,6 +37,7 @@ function AuthProvider({ children }) {
             localStorage.removeItem('userInfo')
             localStorage.removeItem('expiresAt')
             setAuthState({})
+            history.push('/login')
         } catch (error) {
             console.log(error)
         }
