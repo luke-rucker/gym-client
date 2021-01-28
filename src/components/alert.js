@@ -3,13 +3,14 @@ import MuiAlert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
 
 function Alert({ children, ...props }) {
-    const { showTitle, severity } = props
+    const { showTitle, ...rest } = props
     return (
-        <MuiAlert elevation={6} variant="filled" {...props}>
+        <MuiAlert elevation={6} variant="filled" {...rest}>
             {showTitle && (
                 <AlertTitle>
                     <strong>
-                        {severity.charAt(0).toUpperCase() + severity.slice(1)}
+                        {props.severity.charAt(0).toUpperCase() +
+                            props.severity.slice(1)}
                     </strong>
                 </AlertTitle>
             )}
