@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     AppBar as MuiAppBar,
@@ -15,10 +15,14 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
     },
-    appBarIcon: {
-        marginRight: theme.spacing(2),
+    clickable: {
+        cursor: 'pointer',
     },
-    title: {
+    appBarIcon: {
+        paddingRight: theme.spacing(1),
+        fontSize: 30,
+    },
+    buffer: {
         flexGrow: 1,
     },
 }))
@@ -26,14 +30,27 @@ const useStyles = makeStyles((theme) => ({
 function AppBar() {
     const classes = useStyles()
     const { isAuthenticated } = useAuth()
+    const history = useHistory()
 
     return (
         <MuiAppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <FitnessCenterIcon className={classes.appBarIcon} />
-                <Typography variant="h5" className={classes.title}>
+                <FitnessCenterIcon
+                    className={`${classes.appBarIcon} ${classes.clickable}`}
+                    onClick={() =>
+                        history.push(isAuthenticated() ? '/dashboard' : '/')
+                    }
+                />
+                <Typography
+                    variant="h4"
+                    className={classes.clickable}
+                    onClick={() =>
+                        history.push(isAuthenticated() ? '/dashboard' : '/')
+                    }
+                >
                     Jacobs University Gym
                 </Typography>
+                <div className={classes.buffer} />
                 {isAuthenticated() ? (
                     <AvatarMenu />
                 ) : (
