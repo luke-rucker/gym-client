@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { useAuth } from '../context/auth-context'
-import publicAxios from '../util/axios'
-import FullPageSpinner from '../components/full-page-spinner'
-import Alert from '../components/alert'
 import {
     Avatar,
     Button,
@@ -15,6 +11,10 @@ import {
 } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
+import FullPageSpinner from '../components/full-page-spinner'
+import Alert from '../components/alert'
+import { useAuth } from '../context/auth-context'
+import publicAxios from '../util/axios'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -75,9 +75,7 @@ function Login() {
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Login
-                    </Typography>
+                    <Typography variant="h5">Login</Typography>
                     <form
                         className={classes.form}
                         onSubmit={handleSubmit}
@@ -104,7 +102,9 @@ function Login() {
                             id="password"
                         />
                         {successMessage && (
-                            <Alert severity="success">{successMessage}</Alert>
+                            <Alert severity="success" showTitle={false}>
+                                {successMessage}
+                            </Alert>
                         )}
                         {errorMessage && (
                             <Alert severity="error">{errorMessage}</Alert>
