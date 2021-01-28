@@ -43,7 +43,6 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState()
     const [errorMessage, setErrorMessage] = useState()
-    const [redirectOnLogin, setRedirectOnLogin] = useState(false)
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -56,24 +55,20 @@ function Login() {
                 password: password.value,
             })
 
-            setIsLoading(false)
-            setAuthState(data)
-            setSuccessMessage(data.message)
             setErrorMessage('')
+            setSuccessMessage(data.message)
 
-            setTimeout(() => setRedirectOnLogin(true), 300)
+            // Delay so success message is rendered
+            setTimeout(() => setAuthState(data), 500)
         } catch (error) {
             setIsLoading(false)
             setErrorMessage(error.response.data.message)
-            setSuccessMessage(null)
         }
     }
 
     return (
         <>
-            {(isAuthenticated() || redirectOnLogin) && (
-                <Redirect to="/dashboard" />
-            )}
+            {isAuthenticated() && <Redirect to="/dashboard" />}
             {isLoading && <FullPageSpinner />}
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
