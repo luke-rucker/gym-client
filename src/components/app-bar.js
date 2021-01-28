@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     AppBar as MuiAppBar,
@@ -7,7 +8,7 @@ import {
     Typography,
 } from '@material-ui/core'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
-import { Link } from 'react-router-dom'
+import AvatarMenu from '../components/avatar-menu'
 import { useAuth } from '../context/auth-context'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AppBar() {
     const classes = useStyles()
-    const { isAuthenticated, logout } = useAuth()
+    const { isAuthenticated } = useAuth()
 
     return (
         <MuiAppBar position="fixed" className={classes.appBar}>
@@ -34,13 +35,7 @@ function AppBar() {
                     Jacobs University Gym
                 </Typography>
                 {isAuthenticated() ? (
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={logout}
-                    >
-                        Logout
-                    </Button>
+                    <AvatarMenu />
                 ) : (
                     <Button
                         component={Link}
