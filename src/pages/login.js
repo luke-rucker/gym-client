@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
     const classes = useStyles()
-    const { setAuthState } = useAuth()
+    const { isAuthenticated, setAuthState } = useAuth()
 
     const [isLoading, setIsLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState()
@@ -71,7 +71,9 @@ function Login() {
 
     return (
         <>
-            {redirectOnLogin && <Redirect to="/dashboard" />}
+            {(isAuthenticated() || redirectOnLogin) && (
+                <Redirect to="/dashboard" />
+            )}
             {isLoading && <FullPageSpinner />}
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>

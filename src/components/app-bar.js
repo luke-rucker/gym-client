@@ -7,6 +7,7 @@ import {
     Typography,
 } from '@material-ui/core'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/auth-context'
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AppBar() {
     const classes = useStyles()
-    const { logout } = useAuth()
+    const { isAuthenticated, logout } = useAuth()
 
     return (
         <MuiAppBar position="fixed" className={classes.appBar}>
@@ -32,9 +33,24 @@ function AppBar() {
                 <Typography variant="h5" className={classes.title}>
                     Jacobs University Gym
                 </Typography>
-                <Button variant="contained" color="primary" onClick={logout}>
-                    Logout
-                </Button>
+                {isAuthenticated() ? (
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={logout}
+                    >
+                        Logout
+                    </Button>
+                ) : (
+                    <Button
+                        component={Link}
+                        to="/login"
+                        variant="contained"
+                        color="primary"
+                    >
+                        Login
+                    </Button>
+                )}
             </Toolbar>
         </MuiAppBar>
     )
