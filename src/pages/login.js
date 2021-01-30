@@ -11,8 +11,7 @@ import {
 } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
-import FullPageSpinner from '../components/full-page-spinner'
-import Alert from '../components/alert'
+import { FullPageSpinner, Alert } from '../components'
 import { useAuth } from '../context/auth-context'
 import publicAxios from '../util/axios'
 

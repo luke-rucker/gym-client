@@ -1,7 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import AppBar from './components/app-bar'
-import Drawer from './components/drawer'
+import { AppBar, Drawer } from './components'
 
 const useStyles = makeStyles((theme) => ({
     root: {

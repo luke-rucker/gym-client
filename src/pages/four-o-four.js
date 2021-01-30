@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied'
 import AppShell from '../app-shell'
-import AppBar from '../components/app-bar'
+import { AppBar } from '../components'
 import { useAuth } from '../context/auth-context'
 
 const useStyles = makeStyles((theme) => ({

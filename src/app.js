@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { useAuth } from './context/auth-context'
-import FullPageSpinner from './components/full-page-spinner'
+import { FullPageSpinner } from './components'
 import AppShell from './app-shell'
 
 import Landing from './pages/landing'
