@@ -7,7 +7,7 @@ import { FullPageSpinner, AppBar, Alert } from '../components'
 import { useAuth } from '../context/auth-context'
 import publicAxios from '../util/axios'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     alert: {
         marginTop: theme.spacing(2),
         maxWidth: 240,
@@ -28,7 +28,7 @@ function Landing() {
 
     const { isLoading, error, data } = useQuery(
         'gymStatus',
-        () => publicAxios.get('/gym/status').then((response) => response.data),
+        () => publicAxios.get('/gym/status').then(response => response.data),
         {
             retry: false,
         }

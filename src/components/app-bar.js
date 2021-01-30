@@ -11,7 +11,7 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import AvatarMenu from '../components/avatar-menu'
 import { useAuth } from '../context/auth-context'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
     },

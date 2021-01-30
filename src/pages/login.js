@@ -15,7 +15,7 @@ import { FullPageSpinner, Alert } from '../components'
 import { useAuth } from '../context/auth-context'
 import publicAxios from '../util/axios'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',

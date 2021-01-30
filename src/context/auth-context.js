@@ -83,7 +83,7 @@ function AuthProvider({ children }) {
         <Provider
             value={{
                 authState,
-                setAuthState: (authInfo) => setAuthInfo(authInfo),
+                setAuthState: authInfo => setAuthInfo(authInfo),
                 logout,
                 isAuthenticated,
                 isAdmin,

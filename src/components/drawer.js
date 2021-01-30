@@ -16,7 +16,7 @@ import { useAuth } from '../context/auth-context'
 
 const drawerWidth = 180
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -67,10 +67,10 @@ function Drawer() {
             <Divider />
             <List>
                 {drawerItems
-                    .filter((item) =>
+                    .filter(item =>
                         item.allowedRoles.includes(authState.userInfo.role)
                     )
-                    .map((item) => (
+                    .map(item => (
                         <ListItem button key={item.name} onClick={item.onClick}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.name} />

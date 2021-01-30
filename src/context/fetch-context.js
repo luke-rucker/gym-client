@@ -14,11 +14,11 @@ function FetchProvider({ children }) {
     })
 
     authAxios.interceptors.request.use(
-        (config) => {
+        config => {
             config.headers.Authorization = `Bearer ${getAccessToken()}`
             return config
         },
-        (error) => {
+        error => {
             return Promise.reject(error)
         }
     )
@@ -38,4 +38,12 @@ function FetchProvider({ children }) {
     )
 }
 
-export { FetchContext, FetchProvider }
+function useFetch() {
+    const context = useContext(FetchContext)
+    if (context === undefined) {
+        throw new Error('useFetch must be used within a FetchProvider')
+    }
+    return context
+}
+
+export { FetchProvider, useFetch }

@@ -6,7 +6,7 @@ import AppShell from '../app-shell'
 import { AppBar } from '../components'
 import { useAuth } from '../context/auth-context'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     message: {
