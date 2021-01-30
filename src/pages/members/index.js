@@ -1,13 +1,7 @@
 import React from 'react'
-import { useRouteMatch, useParams, Switch, Route, Link } from 'react-router-dom'
-
-function MemberTable() {
-    const { url } = useRouteMatch()
-}
-
-function Member() {
-    const { memberId } = useParams()
-}
+import { useRouteMatch, Switch, Route } from 'react-router-dom'
+import MemberTable from './member-table'
+import Member from './member'
 
 function Members() {
     const { path } = useRouteMatch()

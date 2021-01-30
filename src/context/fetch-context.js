@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import axios from 'axios'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
 import { useAuth } from './auth-context'
