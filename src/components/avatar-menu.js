@@ -15,7 +15,7 @@ function AvatarMenu() {
     return (
         <>
             <IconButton
-                aria-controls="avatar-menu"
+                aria-controls="avatar menu"
                 aria-haspopup="true"
                 onClick={handleClick}
             >
@@ -25,7 +25,7 @@ function AvatarMenu() {
                 />
             </IconButton>
             <Menu
-                id="avatar-menu"
+                id="avatar menu"
                 anchorEl={anchorEl}
                 getContentAnchorEl={null}
                 anchorOrigin={{

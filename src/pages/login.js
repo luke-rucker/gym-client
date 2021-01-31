@@ -57,7 +57,7 @@ function Login() {
             setErrorMessage('')
             setSuccessMessage(data.message)
 
-            // Delay so success message is rendered
+            // Delay so success message is visibly rendered before redirect
             setTimeout(() => setAuthState(data), 500)
         } catch (error) {
             setIsLoading(false)
