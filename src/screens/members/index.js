@@ -1,15 +1,15 @@
 import React from 'react'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
-import MemberTable from './member-table'
+import Members from './members'
 import Member from './member'
 
-function Members() {
+function MembersRoutes() {
     const { path } = useRouteMatch()
 
     return (
         <Switch>
             <Route exact path={path}>
-                <MemberTable />
+                <Members />
             </Route>
             <Route path={`${path}/:memberId`}>
                 <Member />
@@ -18,4 +18,4 @@ function Members() {
     )
 }
 
-export default Members
+export default MembersRoutes

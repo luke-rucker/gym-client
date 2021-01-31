@@ -101,7 +101,7 @@ function Login() {
                             id="password"
                         />
                         {successMessage && (
-                            <Alert severity="success" hideTitle={true}>
+                            <Alert severity="success" hideTitle>
                                 {successMessage}
                             </Alert>
                         )}

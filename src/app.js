@@ -4,13 +4,13 @@ import { useAuth } from './context/auth-context'
 import { FullPageSpinner } from './components'
 import AppShell from './app-shell'
 
-import Landing from './pages/landing'
-import Login from './pages/login'
-import FourOFour from './pages/four-o-four'
+import Landing from './screens/landing'
+import Login from './screens/login'
+import FourOFour from './screens/four-o-four'
 
-const Dashboard = lazy(() => import('./pages/dashboard'))
-const Members = lazy(() => import('./pages/members'))
-const Admin = lazy(() => import('./pages/admin'))
+const Dashboard = lazy(() => import('./screens/dashboard'))
+const Members = lazy(() => import('./screens/members'))
+const Admin = lazy(() => import('./screens/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
     const { isAuthenticated } = useAuth()
