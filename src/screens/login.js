@@ -75,11 +75,7 @@ function Login() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant="h5">Login</Typography>
-                    <form
-                        className={classes.form}
-                        onSubmit={handleSubmit}
-                        noValidate
-                    >
+                    <form className={classes.form} onSubmit={handleSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"

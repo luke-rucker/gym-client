@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useTableStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     container: {
         minWidth: 650,
         maxHeight: '70vh',
@@ -23,7 +23,7 @@ const useTableStyles = makeStyles(theme => ({
 }))
 
 function MembersTable({ rows }) {
-    const classes = useTableStyles()
+    const classes = useStyles()
     const { path } = useRouteMatch()
     const history = useHistory()
 
