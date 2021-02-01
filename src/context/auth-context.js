@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import publicAxios from '../util/axios'
 
 const AuthContext = createContext()
 const { Provider } = AuthContext
@@ -30,17 +29,12 @@ function AuthProvider({ children }) {
         })
     }
 
-    async function logout() {
-        try {
-            await publicAxios.delete('/auth/token/invalidate')
-            localStorage.removeItem('token')
-            localStorage.removeItem('userInfo')
-            localStorage.removeItem('expiresAt')
-            setAuthState({})
-            history.push('/login')
-        } catch (error) {
-            console.log(error)
-        }
+    function logout() {
+        localStorage.removeItem('token')
+        localStorage.removeItem('userInfo')
+        localStorage.removeItem('expiresAt')
+        setAuthState({})
+        history.push('/login')
     }
 
     function isAuthenticated() {
@@ -58,27 +52,6 @@ function AuthProvider({ children }) {
         return localStorage.getItem('token')
     }
 
-    async function getNewToken() {
-        try {
-            const { data } = await publicAxios.get('/token/refresh')
-            setAuthState(Object.assign({}, authState, { token: data.token }))
-        } catch (err) {
-            return err
-        }
-    }
-
-    async function getNewTokenForRequest(failedRequest) {
-        const { data } = await publicAxios.get('/token/refresh')
-
-        failedRequest.response.config.headers[
-            'Authorization'
-        ] = `Bearer ${data.token}`
-
-        localStorage.setItem('token', data.token)
-
-        return Promise.resolve()
-    }
-
     return (
         <Provider
             value={{
@@ -87,9 +60,7 @@ function AuthProvider({ children }) {
                 logout,
                 isAuthenticated,
                 isAdmin,
-                getNewToken,
                 getAccessToken,
-                getNewTokenForRequest,
             }}
         >
             {children}
