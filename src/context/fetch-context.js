@@ -1,8 +1,8 @@
-import React, { createContext, useContext } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { useAuth } from './auth-context'
 
-const FetchContext = createContext()
+const FetchContext = React.createContext()
 const { Provider } = FetchContext
 
 function FetchProvider({ children }) {
@@ -42,7 +42,7 @@ function FetchProvider({ children }) {
 }
 
 function useFetch() {
-    const context = useContext(FetchContext)
+    const context = React.useContext(FetchContext)
     if (context === undefined) {
         throw new Error('useFetch must be used within a FetchProvider')
     }

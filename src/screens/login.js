@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import {
     Avatar,
@@ -39,9 +39,9 @@ function Login() {
     const classes = useStyles()
     const { isAuthenticated, setAuthState } = useAuth()
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [successMessage, setSuccessMessage] = useState()
-    const [errorMessage, setErrorMessage] = useState()
+    const [isLoading, setIsLoading] = React.useState(false)
+    const [successMessage, setSuccessMessage] = React.useState()
+    const [errorMessage, setErrorMessage] = React.useState()
 
     async function handleSubmit(event) {
         event.preventDefault()

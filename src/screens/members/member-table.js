@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useRouteMatch, useHistory } from 'react-router-dom'
 import {
     TableContainer,
@@ -27,8 +27,8 @@ function MembersTable({ rows }) {
     const { path } = useRouteMatch()
     const history = useHistory()
 
-    const [page, setPage] = useState(0)
-    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [page, setPage] = React.useState(0)
+    const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
     const emptyRows =
         rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
@@ -90,7 +90,7 @@ function MembersTable({ rows }) {
             </TableContainer>
             <TablePagination
                 component="div"
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                rowsPerPageOptions={[10, 15, 25, { label: 'All', value: -1 }]}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

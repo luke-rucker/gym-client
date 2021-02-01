@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-const AuthContext = createContext()
+const AuthContext = React.createContext()
 const { Provider } = AuthContext
 
 function AuthProvider({ children }) {
@@ -11,7 +11,7 @@ function AuthProvider({ children }) {
     const userInfo = localStorage.getItem('userInfo')
     const expiresAt = localStorage.getItem('expiresAt')
 
-    const [authState, setAuthState] = useState({
+    const [authState, setAuthState] = React.useState({
         token,
         userInfo: userInfo ? JSON.parse(userInfo) : {},
         expiresAt: parseInt(expiresAt),
@@ -69,7 +69,7 @@ function AuthProvider({ children }) {
 }
 
 function useAuth() {
-    const context = useContext(AuthContext)
+    const context = React.useContext(AuthContext)
     if (context === undefined) {
         throw new Error('useAuth must be used within a AuthProvider')
     }

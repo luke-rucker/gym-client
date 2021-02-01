@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQueryClient, useQuery, useMutation } from 'react-query'
 import { Typography, Fab, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -44,8 +44,8 @@ function Members() {
         }
     )
 
-    const [dialogOpen, setDialogOpen] = useState(false)
-    const [alertOpen, setAlertOpen] = useState(false)
+    const [dialogOpen, setDialogOpen] = React.useState(false)
+    const [alertOpen, setAlertOpen] = React.useState(false)
 
     function handleAlertClose(event, reason) {
         if (reason === 'clickaway') {
