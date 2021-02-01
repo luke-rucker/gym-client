@@ -36,7 +36,7 @@ function NewMemberDialog({ open, setOpen, mutation }) {
             <form onSubmit={handleSubmit}>
                 <DialogContent style={{ paddingTop: 0 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={6}>
                             <TextField
                                 name="firstName"
                                 required
@@ -46,7 +46,7 @@ function NewMemberDialog({ open, setOpen, mutation }) {
                                 autoFocus
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={6}>
                             <TextField
                                 required
                                 fullWidth

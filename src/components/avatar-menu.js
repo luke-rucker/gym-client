@@ -20,7 +20,7 @@ function AvatarMenu() {
                 onClick={handleClick}
             >
                 <Avatar
-                    alt={userInfo.firstname + ' ' + userInfo.lastname}
+                    alt={`${userInfo.firstname} ${userInfo.lastname}`}
                     src={userInfo.profileImageUrl}
                 />
             </IconButton>
