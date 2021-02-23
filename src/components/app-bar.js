@@ -5,7 +5,7 @@ import { useAuth } from '../context/auth-context'
 
 function AppBar() {
     const history = useHistory()
-    const { isAuthenticated, logout, authState } = useAuth()
+    const { isAuthenticated } = useAuth()
 
     return (
         <>
@@ -14,26 +14,15 @@ function AppBar() {
                     onClick={() =>
                         history.push(isAuthenticated() ? '/dashboard' : '/')
                     }
+                    header
                 >
-                    <Image size="medium" src="/logo.svg" alt="logo" />
+                    <Image size="mini" src="/icon.svg" alt="logo" />
+                    <div style={{ paddingLeft: '4px' }}>
+                        Jacobs University Gym
+                    </div>
                 </Menu.Item>
                 {isAuthenticated() ? (
-                    <Menu.Menu
-                        position="right"
-                        style={{
-                            paddingRight: '10px',
-                            marginBottom: 'auto',
-                            marginTop: 'auto',
-                        }}
-                    >
-                        <Dropdown text={authState.userInfo.firstName} pointing>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => logout()}>
-                                    Logout
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Menu>
+                    <AvatarMenu />
                 ) : (
                     <Menu.Item position="right">
                         <Button
@@ -49,6 +38,47 @@ function AppBar() {
                 )}
             </Menu>
         </>
+    )
+}
+
+function AvatarMenu() {
+    const { logout, authState } = useAuth()
+
+    const trigger = (
+        <>
+            <Image
+                avatar
+                src={authState.userInfo.profileImageUrl}
+                alt="profile image"
+            />
+            <span>{authState.userInfo.firstName}</span>
+        </>
+    )
+
+    return (
+        <Menu.Menu
+            position="right"
+            style={{
+                paddingRight: '10px',
+                marginBottom: 'auto',
+                marginTop: 'auto',
+            }}
+        >
+            <Dropdown
+                pointing
+                trigger={trigger}
+                image={{
+                    avatar: true,
+                    src: authState.userInfo.profileImageUrl,
+                }}
+            >
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => logout()}>
+                        Logout
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </Menu.Menu>
     )
 }
 
