@@ -8,16 +8,12 @@ function AvatarMenu() {
 
     const [anchorEl, setAnchorEl] = useState(null)
 
-    const handleClick = event => setAnchorEl(event.currentTarget)
-
-    const handleClose = () => setAnchorEl(null)
-
     return (
         <>
             <IconButton
                 aria-controls="avatar menu"
                 aria-haspopup="true"
-                onClick={handleClick}
+                onClick={event => setAnchorEl(event.currentTarget)}
             >
                 <Avatar
                     alt={`${userInfo.firstname} ${userInfo.lastname}`}
@@ -38,7 +34,7 @@ function AvatarMenu() {
                 }}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
             >
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
