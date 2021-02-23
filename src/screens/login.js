@@ -45,7 +45,6 @@ function Login() {
     return (
         <>
             {isAuthenticated() && <Redirect to="/dashboard" />}
-            {isLoading && <div>Loading...</div>}
             <Grid
                 textAlign="center"
                 style={{ height: '100vh' }}

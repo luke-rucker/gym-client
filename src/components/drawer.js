@@ -28,31 +28,31 @@ const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
 }))
 
-const drawerItems = [
-    {
-        name: 'Dashboard',
-        icon: <DashboardIcon />,
-        onClick: () => history.push('/dashboard'),
-        allowedRoles: ['ADVISOR', 'ADMIN'],
-    },
-    {
-        name: 'Members',
-        icon: <GroupIcon />,
-        onClick: () => history.push('/members'),
-        allowedRoles: ['ADVISOR', 'ADMIN'],
-    },
-    {
-        name: 'Admin',
-        icon: <LockIcon />,
-        onClick: () => history.push('/admin'),
-        allowedRoles: ['ADMIN'],
-    },
-]
-
 function Drawer() {
     const classes = useStyles()
     const history = useHistory()
     const { authState } = useAuth()
+
+    const drawerItems = [
+        {
+            name: 'Dashboard',
+            icon: <DashboardIcon />,
+            onClick: () => history.push('/dashboard'),
+            allowedRoles: ['ADVISOR', 'ADMIN'],
+        },
+        {
+            name: 'Members',
+            icon: <GroupIcon />,
+            onClick: () => history.push('/members'),
+            allowedRoles: ['ADVISOR', 'ADMIN'],
+        },
+        {
+            name: 'Admin',
+            icon: <LockIcon />,
+            onClick: () => history.push('/admin'),
+            allowedRoles: ['ADMIN'],
+        },
+    ]
 
     return (
         <MuiDrawer
