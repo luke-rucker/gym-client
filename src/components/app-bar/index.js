@@ -7,7 +7,20 @@ import { useAuth } from '../../context/auth-context'
 
 function AppBar() {
     const history = useHistory()
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated, authState } = useAuth()
+
+    const menuItems = [
+        {
+            name: 'Members',
+            onClick: () => history.push('/members'),
+            rolesAllowed: ['USER', 'ADMIN'],
+        },
+        {
+            name: 'Admin',
+            onClick: () => history.push('/admin'),
+            rolesAllowed: ['ADMIN'],
+        },
+    ]
 
     return (
         <>
@@ -25,12 +38,17 @@ function AppBar() {
                 </Menu.Item>
                 {isAuthenticated() ? (
                     <>
-                        <Menu.Item onClick={() => history.push('/members')}>
-                            Members
-                        </Menu.Item>
-                        <Menu.Item onClick={() => history.push('/admin')}>
-                            Admin
-                        </Menu.Item>
+                        {menuItems
+                            .filter(menuItem =>
+                                menuItem.rolesAllowed.includes(
+                                    authState.userInfo.role
+                                )
+                            )
+                            .map(menuItem => (
+                                <Menu.Item onClick={menuItem.onClick}>
+                                    {menuItem.name}
+                                </Menu.Item>
+                            ))}
                         <Menu.Menu
                             position="right"
                             style={{
