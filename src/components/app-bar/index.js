@@ -45,15 +45,17 @@ function AppBar() {
                                 )
                             )
                             .map(menuItem => (
-                                <Menu.Item onClick={menuItem.onClick}>
+                                <Menu.Item
+                                    onClick={menuItem.onClick}
+                                    key={menuItem.name}
+                                >
                                     {menuItem.name}
                                 </Menu.Item>
                             ))}
                         <Menu.Menu
                             position="right"
                             style={{
-                                marginBottom: 'auto',
-                                marginTop: 'auto',
+                                margin: 'auto 0',
                             }}
                         >
                             <Menu.Item>

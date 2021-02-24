@@ -3,7 +3,7 @@ import { Dimmer, Loader } from 'semantic-ui-react'
 
 function FullPageSpinner() {
     return (
-        <Dimmer active>
+        <Dimmer active inverted>
             <Loader />
         </Dimmer>
     )
