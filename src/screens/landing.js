@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Container, Typography } from '@material-ui/core'
-import { FullPageSpinner, AppBar, Alert } from '../components'
+import { Container, Message, Header } from 'semantic-ui-react'
+import { FullPageSpinner, AppBar } from '../components'
 import publicAxios from '../util/axios'
 
 function Landing() {
@@ -20,18 +20,18 @@ function Landing() {
     return (
         <>
             <AppBar />
-            {error ? (
-                <Alert severity="error">
-                    {error.response.data.message || 'Something went wrong!'}
-                </Alert>
-            ) : (
-                <Container>
-                    <Typography variant="h1">
-                        {data.currentCapacity}/{data.maxCapacity} People
-                    </Typography>
-                    <Typography variant="h2">Are in the Gym</Typography>
-                </Container>
-            )}
+            <Container text style={{ textAlign: 'center' }}>
+                {error ? (
+                    <Message negative>
+                        {error.response.data.message || 'Something went wrong!'}
+                    </Message>
+                ) : (
+                    <Header size="huge">
+                        {data.currentCapacity}/{data.maxCapacity} People are in
+                        the Gym
+                    </Header>
+                )}
+            </Container>
         </>
     )
 }
