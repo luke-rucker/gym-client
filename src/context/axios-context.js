@@ -2,10 +2,10 @@ import React from 'react'
 import axios from 'axios'
 import { useAuth } from './auth-context'
 
-const FetchContext = React.createContext()
-const { Provider } = FetchContext
+const AxiosContext = React.createContext()
+const { Provider } = AxiosContext
 
-function FetchProvider({ children }) {
+function AxiosProvider({ children }) {
     const { getAccessToken, logout } = useAuth()
 
     const authAxios = axios.create({
@@ -30,23 +30,15 @@ function FetchProvider({ children }) {
         }
     )
 
-    return (
-        <Provider
-            value={{
-                authAxios,
-            }}
-        >
-            {children}
-        </Provider>
-    )
+    return <Provider value={authAxios}>{children}</Provider>
 }
 
-function useFetch() {
+function useAxios() {
     const context = React.useContext(FetchContext)
     if (context === undefined) {
-        throw new Error('useFetch must be used within a FetchProvider')
+        throw new Error('useAxios must be used within a AxiosProvider')
     }
     return context
 }
 
-export { FetchProvider, useFetch }
+export { AxiosProvider, useAxios }
