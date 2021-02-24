@@ -1,104 +1,62 @@
 import React from 'react'
-import { useQueryClient, useQuery, useMutation } from 'react-query'
-import { Typography, Fab, Snackbar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import AddIcon from '@material-ui/icons/Add'
-import { FullPageSpinner, Alert } from '../../components'
+import { useHistory } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { Grid, Button, Form, Icon } from 'semantic-ui-react'
+import { FullPageSpinner, MembersTable } from '../../components'
 import { useFetch } from '../../context/fetch-context'
-import MembersTable from './member-table'
-import NewMemberDialog from './new-member-dialog'
-
-const useStyles = makeStyles(theme => ({
-    alert: {
-        width: 180,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
-    header: {
-        marginBottom: theme.spacing(2),
-    },
-    fab: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
-    },
-}))
 
 function Members() {
-    const classes = useStyles()
+    const history = useHistory()
     const { authAxios } = useFetch()
-    const queryClient = useQueryClient()
 
     const membersQuery = useQuery('members', () =>
         authAxios.get('/members').then(response => response.data)
     )
 
-    const newMemberMutation = useMutation(
-        newMember => authAxios.post('/members', newMember),
-        {
-            onSuccess: () => queryClient.invalidateQueries('members'),
-            onSettled: () => {
-                setDialogOpen(false)
-                setAlertOpen(true)
-            },
-        }
-    )
+    const [search, setSearch] = React.useState('')
 
-    const [dialogOpen, setDialogOpen] = React.useState(false)
-    const [alertOpen, setAlertOpen] = React.useState(false)
-
-    function handleAlertClose(event, reason) {
-        if (reason === 'clickaway') {
-            return
+    function filter(members) {
+        if (!search) {
+            return members
         }
-        setAlertOpen(false)
+
+        return members.filter(
+            member =>
+                `${member.firstName} ${member.lastName} ${member.email}`
+                    .toLowerCase()
+                    .indexOf(search.toLowerCase()) >= 0
+        )
     }
 
-    if (membersQuery.isLoading || newMemberMutation.isLoading) {
+    if (membersQuery.isLoading) {
         return <FullPageSpinner />
     }
 
     return (
         <>
-            <Typography variant="h4" className={classes.header}>
-                Members
-            </Typography>
-            {membersQuery.error ? (
-                <Alert severity="error" className={classes.alert}>
-                    Could not load members.
-                </Alert>
-            ) : (
-                <MembersTable rows={membersQuery.data} />
-            )}
-            <NewMemberDialog
-                open={dialogOpen}
-                setOpen={setDialogOpen}
-                mutation={newMemberMutation}
-            />
-            <Snackbar
-                open={alertOpen}
-                autoHideDuration={6000}
-                onClose={handleAlertClose}
-            >
-                {newMemberMutation.isError ? (
-                    <Alert onClose={handleAlertClose} severity="error">
-                        {newMemberMutation.error.response.data.message ||
-                            'Could not create new member.'}
-                    </Alert>
-                ) : (
-                    <Alert onClose={handleAlertClose} severity="success">
-                        New Member created.
-                    </Alert>
-                )}
-            </Snackbar>
-            <Fab
-                color="primary"
-                className={classes.fab}
-                aria-label="new member"
-                onClick={() => setDialogOpen(true)}
-            >
-                <AddIcon />
-            </Fab>
+            <Grid>
+                <Grid.Column width={4}>
+                    <Form.Input
+                        icon="search"
+                        placeholder="Find a member..."
+                        onChange={e => setSearch(e.target.value)}
+                        value={search}
+                    />
+                </Grid.Column>
+                <Grid.Column width={2} floated="right">
+                    <Button
+                        floated="right"
+                        icon
+                        labelPosition="left"
+                        color="green"
+                        onClick={() => history.push('/members/new')}
+                    >
+                        <Icon name="user" />
+                        New
+                    </Button>
+                </Grid.Column>
+            </Grid>
+            <MembersTable members={filter(membersQuery.data)} />
         </>
     )
 }

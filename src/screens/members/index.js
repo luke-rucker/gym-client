@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
-import Members from './old-members'
+import Members from './members'
 import NewMember from './new-member'
 import Member from './member'
 

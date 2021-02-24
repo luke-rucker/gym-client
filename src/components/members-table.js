@@ -28,29 +28,40 @@ function MembersTable({ members }) {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {rows.map(member => (
-                        <Table.Row
-                            key={member.id}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() =>
-                                history.push(`/members/${member.id}`)
-                            }
-                        >
-                            <Table.Cell>{`${member.firstName} ${member.lastName}`}</Table.Cell>
-                            <Table.Cell>{member.email}</Table.Cell>
-                            <Table.Cell textAlign="right">
-                                <Button icon color="red">
-                                    <Icon name="trash" />
-                                </Button>
+                    {rows.length > 0 ? (
+                        rows.map(member => (
+                            <Table.Row
+                                key={member.id}
+                                style={{ cursor: 'pointer' }}
+                                onClick={() =>
+                                    history.push(`/members/${member.id}`)
+                                }
+                            >
+                                <Table.Cell>{`${member.firstName} ${member.lastName}`}</Table.Cell>
+                                <Table.Cell>{member.email}</Table.Cell>
+                                <Table.Cell textAlign="right">
+                                    <Button icon color="red">
+                                        <Icon name="trash" />
+                                    </Button>
+                                </Table.Cell>
+                            </Table.Row>
+                        ))
+                    ) : (
+                        <Table.Row>
+                            <Table.Cell />
+                            <Table.Cell textAlign="center">
+                                <Icon name="exclamation circle" />
+                                No Data
                             </Table.Cell>
+                            <Table.Cell />
                         </Table.Row>
-                    ))}
+                    )}
                 </Table.Body>
             </Table>
             <Pagination
                 activePage={page + 1}
                 onPageChange={handlePageChange}
-                totalPages={rows.length / rowsPerPage + 1}
+                totalPages={Math.ceil(members.length / rowsPerPage)}
             />
         </>
     )
