@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Grid, Button, Form, Icon } from 'semantic-ui-react'
+import { Message, Grid, Button, Form, Icon, Container } from 'semantic-ui-react'
 import { FullPageSpinner, MembersTable } from '../../components'
 import { useFetch } from '../../context/fetch-context'
 
@@ -9,7 +9,7 @@ function Members() {
     const history = useHistory()
     const { authAxios } = useFetch()
 
-    const membersQuery = useQuery('members', () =>
+    const { isLoading, error, data } = useQuery('members', () =>
         authAxios.get('/members').then(response => response.data)
     )
 
@@ -28,8 +28,19 @@ function Members() {
         )
     }
 
-    if (membersQuery.isLoading) {
+    if (isLoading) {
         return <FullPageSpinner />
+    }
+
+    if (error) {
+        return (
+            <Container text>
+                <Message negative>
+                    <Message.Header>Error</Message.Header>
+                    {error.response.data.message || 'Could not load members.'}
+                </Message>
+            </Container>
+        )
     }
 
     return (
@@ -56,7 +67,7 @@ function Members() {
                     </Button>
                 </Grid.Column>
             </Grid>
-            <MembersTable members={filter(membersQuery.data)} />
+            <MembersTable members={filter(data)} />
         </>
     )
 }
