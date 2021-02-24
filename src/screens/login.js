@@ -71,15 +71,12 @@ function Login() {
                             >
                                 Login
                             </Button>
-                            {errorMessage && (
-                                <Message
-                                    negative
-                                    style={{ textAlign: 'center' }}
-                                >
-                                    <p>{errorMessage}</p>
-                                </Message>
-                            )}
                         </Segment>
+                        {errorMessage && (
+                            <Message negative style={{ textAlign: 'center' }}>
+                                <p>{errorMessage}</p>
+                            </Message>
+                        )}
                     </Form>
                 </Grid.Column>
             </Grid>
