@@ -1,5 +1,3 @@
-export { default as Alert } from './alert'
 export { default as AppBar } from './app-bar'
-export { default as AvatarMenu } from './avatar-menu'
-export { default as Drawer } from './drawer'
 export { default as FullPageSpinner } from './full-page-spinner'
+export { default as MembersTable } from './members-table'
