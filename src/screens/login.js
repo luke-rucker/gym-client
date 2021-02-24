@@ -1,14 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import {
-    Button,
-    Form,
-    Grid,
-    Header,
-    Image,
-    Segment,
-    Message,
-} from 'semantic-ui-react'
+import { Button, Form, Grid, Image, Segment, Message } from 'semantic-ui-react'
 import { useAuth } from '../context/auth-context'
 import publicAxios from '../util/axios'
 
@@ -16,7 +8,6 @@ function Login() {
     const { isAuthenticated, setAuthState } = useAuth()
 
     const [isLoading, setIsLoading] = React.useState(false)
-    const [successMessage, setSuccessMessage] = React.useState()
     const [errorMessage, setErrorMessage] = React.useState()
 
     async function handleSubmit(event) {
@@ -32,10 +23,7 @@ function Login() {
             })
 
             setErrorMessage('')
-            setSuccessMessage(data.message)
-
-            // Delay so success message is visibly rendered before redirect
-            setTimeout(() => setAuthState(data), 500)
+            setAuthState(data)
         } catch (error) {
             setIsLoading(false)
             setErrorMessage(error.response.data.message)
@@ -51,13 +39,7 @@ function Login() {
                 verticalAlign="middle"
             >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header
-                        as="h2"
-                        style={{ color: '#004180' }}
-                        textAlign="center"
-                    >
-                        <Image src="/icon.svg" /> Login to your account
-                    </Header>
+                    <Image src="/logo.svg" alt="logo" />
                     <Form size="large" onSubmit={handleSubmit}>
                         <Segment stacked>
                             <Form.Input
@@ -65,7 +47,7 @@ function Login() {
                                 required
                                 icon="user"
                                 iconPosition="left"
-                                placeholder="Email address"
+                                placeholder="Email"
                                 name="email"
                             />
                             <Form.Input
@@ -95,14 +77,6 @@ function Login() {
                                     style={{ textAlign: 'center' }}
                                 >
                                     <p>{errorMessage}</p>
-                                </Message>
-                            )}
-                            {successMessage && (
-                                <Message
-                                    color="green"
-                                    style={{ textAlign: 'center' }}
-                                >
-                                    <p>{successMessage}</p>
                                 </Message>
                             )}
                         </Segment>
