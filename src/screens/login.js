@@ -1,15 +1,11 @@
 import React from 'react'
-import { useQueryClient } from 'react-query'
 import { Redirect } from 'react-router-dom'
 import { Button, Form, Grid, Image, Segment, Message } from 'semantic-ui-react'
 import { useAuth } from '../context/auth-context'
-import { useAxios } from '../context/axios-context'
 import { publicAxios } from '../util/axios'
 
 function Login() {
     const auth = useAuth()
-    const queryClient = useQueryClient()
-    const axios = useAxios()
 
     const [isLoading, setIsLoading] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState()
@@ -25,10 +21,6 @@ function Login() {
                 email: email.value,
                 password: password.value,
             })
-
-            await queryClient.fetchQuery('me', () =>
-                axios.get('/users/me').then(response => response.data)
-            )
 
             setErrorMessage('')
             auth.setAuthState(data)
