@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, Button, Icon, Pagination } from 'semantic-ui-react'
+import { Table, Icon, Pagination } from 'semantic-ui-react'
+import MemberActions from './member-actions'
 
 function MembersTable({ members }) {
     const history = useHistory()
@@ -30,19 +31,23 @@ function MembersTable({ members }) {
                 <Table.Body>
                     {rows.length > 0 ? (
                         rows.map(member => (
-                            <Table.Row
-                                key={member.id}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() =>
-                                    history.push(`/members/${member.id}`)
-                                }
-                            >
-                                <Table.Cell>{`${member.firstName} ${member.lastName}`}</Table.Cell>
-                                <Table.Cell>{member.email}</Table.Cell>
+                            <Table.Row key={member.id}>
+                                <Table.Cell
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() =>
+                                        history.push(`/members/${member.id}`)
+                                    }
+                                >{`${member.firstName} ${member.lastName}`}</Table.Cell>
+                                <Table.Cell
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() =>
+                                        history.push(`/members/${member.id}`)
+                                    }
+                                >
+                                    {member.email}
+                                </Table.Cell>
                                 <Table.Cell textAlign="right">
-                                    <Button icon color="red">
-                                        <Icon name="trash" />
-                                    </Button>
+                                    <MemberActions memberId={member.id} />
                                 </Table.Cell>
                             </Table.Row>
                         ))
