@@ -6,25 +6,17 @@ const AxiosContext = React.createContext()
 const { Provider } = AxiosContext
 
 function AxiosProvider({ children }) {
-    const { getAccessToken, logout } = useAuth()
+    const auth = useAuth()
 
     const authAxios = axios.create({
         baseURL: '/api',
     })
 
-    authAxios.interceptors.request.use(
-        config => {
-            config.headers.Authorization = `Bearer ${getAccessToken()}`
-            return config
-        },
-        error => Promise.reject(error)
-    )
-
     authAxios.interceptors.response.use(
         response => response,
         error => {
             if (error.response.status === 401) {
-                logout()
+                auth.logout()
             }
             return Promise.reject(error)
         }
@@ -34,7 +26,7 @@ function AxiosProvider({ children }) {
 }
 
 function useAxios() {
-    const context = React.useContext(FetchContext)
+    const context = React.useContext(AxiosContext)
     if (context === undefined) {
         throw new Error('useAxios must be used within a AxiosProvider')
     }

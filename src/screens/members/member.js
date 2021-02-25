@@ -11,7 +11,7 @@ function Member() {
     const { memberId } = useParams()
 
     const { isLoading, error, data } = useQuery(
-        ['members', { id: parseInt(memberId) }],
+        ['members', { id: memberId }],
         () => axios.get(`/members/${memberId}`).then(response => response.data)
     )
 

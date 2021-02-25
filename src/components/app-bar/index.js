@@ -4,10 +4,12 @@ import { Menu, Image, Button } from 'semantic-ui-react'
 import AvatarDropdown from './avatar-dropdown'
 import NewDropdown from './new-dropdown'
 import { useAuth } from '../../context/auth-context'
+import { useUser } from '../../context/user-context'
 
 function AppBar() {
     const history = useHistory()
-    const { isAuthenticated, authState } = useAuth()
+    const auth = useAuth()
+    const user = useUser()
 
     const menuItems = [
         {
@@ -27,7 +29,9 @@ function AppBar() {
             <Menu borderless>
                 <Menu.Item
                     onClick={() =>
-                        history.push(isAuthenticated() ? '/dashboard' : '/')
+                        history.push(
+                            auth.isAuthenticated() ? '/dashboard' : '/'
+                        )
                     }
                     header
                 >
@@ -36,13 +40,11 @@ function AppBar() {
                         Jacobs University Gym
                     </div>
                 </Menu.Item>
-                {isAuthenticated() ? (
+                {auth.isAuthenticated() ? (
                     <>
                         {menuItems
                             .filter(menuItem =>
-                                menuItem.rolesAllowed.includes(
-                                    authState.userInfo.role
-                                )
+                                menuItem.rolesAllowed.includes(user.role)
                             )
                             .map(menuItem => (
                                 <Menu.Item

@@ -1,66 +1,46 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
+import { publicAxios } from '../util/axios'
 
 const AuthContext = React.createContext()
 const { Provider } = AuthContext
 
 function AuthProvider({ children }) {
     const history = useHistory()
+    const queryClient = useQueryClient()
 
-    const token = localStorage.getItem('token')
-    const userInfo = localStorage.getItem('userInfo')
-    const expiresAt = localStorage.getItem('expiresAt')
+    const [expiresAt, setExpiresAt] = React.useState(
+        parseInt(localStorage.getItem('expiresAt'))
+    )
 
-    const [authState, setAuthState] = React.useState({
-        token,
-        userInfo: userInfo ? JSON.parse(userInfo) : {},
-        expiresAt: parseInt(expiresAt),
-    })
-
-    function setAuthInfo({ token, userInfo, expiresAt }) {
-        localStorage.setItem('token', token)
-        localStorage.setItem('userInfo', JSON.stringify(userInfo))
+    function setAuthInfo({ expiresAt }) {
         localStorage.setItem('expiresAt', expiresAt)
-
-        setAuthState({
-            token,
-            userInfo,
-            expiresAt,
-        })
+        setExpiresAt(expiresAt)
     }
 
-    function logout() {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userInfo')
+    async function logout() {
         localStorage.removeItem('expiresAt')
-        setAuthState({})
+        setExpiresAt(null)
+
+        await publicAxios.delete('/auth/logout')
+        queryClient.clear()
         history.push('/login')
     }
 
     function isAuthenticated() {
-        if (!authState.expiresAt) {
+        if (!expiresAt) {
             return false
         }
-        return new Date() < new Date(authState.expiresAt)
-    }
-
-    function isAdmin() {
-        return authState.userInfo.role === 'ADMIN'
-    }
-
-    function getAccessToken() {
-        return localStorage.getItem('token')
+        return new Date() < new Date(expiresAt)
     }
 
     return (
         <Provider
             value={{
-                authState,
                 setAuthState: authInfo => setAuthInfo(authInfo),
                 logout,
                 isAuthenticated,
-                isAdmin,
-                getAccessToken,
             }}
         >
             {children}
