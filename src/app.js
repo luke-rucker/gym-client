@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { useAuth } from './context/auth-context'
+import { useUser } from './context/user-context'
 import { FullPageSpinner } from './components'
+
 import AppShell from './app-shell'
 
 import Landing from './screens/landing'
@@ -13,13 +15,13 @@ const Members = lazy(() => import('./screens/members'))
 const Admin = lazy(() => import('./screens/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
-    const { isAuthenticated } = useAuth()
+    const auth = useAuth()
 
     return (
         <Route
             {...rest}
             render={() =>
-                isAuthenticated() ? (
+                auth.isAuthenticated() ? (
                     <AppShell>{children}</AppShell>
                 ) : (
                     <Redirect to="/login" />
@@ -30,13 +32,14 @@ function AuthenticatedRoute({ children, ...rest }) {
 }
 
 function AdminRoute({ children, ...rest }) {
-    const { isAuthenticated, isAdmin } = useAuth()
+    const auth = useAuth()
+    const user = useUser()
 
     return (
         <Route
             {...rest}
             render={() =>
-                isAuthenticated() && isAdmin() ? (
+                auth.isAuthenticated() && user.isAdmin() ? (
                     <AppShell>{children}</AppShell>
                 ) : (
                     <Redirect to="/dashboard" />

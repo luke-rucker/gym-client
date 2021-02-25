@@ -3,20 +3,20 @@ import { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { Message, Grid, Button, Form, Icon, Container } from 'semantic-ui-react'
 import { FullPageSpinner, MembersTable } from '../../components'
-import { useFetch } from '../../context/fetch-context'
+import { useAxios } from '../../context/axios-context'
 
 function Members() {
     const history = useHistory()
-    const { authAxios } = useFetch()
+    const axios = useAxios()
 
     const { isLoading, error, data } = useQuery('members', () =>
-        authAxios.get('/members').then(response => response.data)
+        axios.get('/members').then(response => response.data)
     )
 
-    const [search, setSearch] = React.useState('')
+    const [query, setQuery] = React.useState('')
 
     function filter(members) {
-        if (!search) {
+        if (!query) {
             return members
         }
 
@@ -24,7 +24,7 @@ function Members() {
             member =>
                 `${member.firstName} ${member.lastName} ${member.email}`
                     .toLowerCase()
-                    .indexOf(search.toLowerCase()) >= 0
+                    .indexOf(query.toLowerCase()) >= 0
         )
     }
 
@@ -50,8 +50,8 @@ function Members() {
                     <Form.Input
                         icon="search"
                         placeholder="Find a member..."
-                        onChange={e => setSearch(e.target.value)}
-                        value={search}
+                        onChange={e => setQuery(e.target.value)}
+                        value={query}
                     />
                 </Grid.Column>
                 <Grid.Column width={2} floated="right">

@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { Container, Message, Header } from 'semantic-ui-react'
 import { FullPageSpinner, AppBar } from '../components'
-import publicAxios from '../util/axios'
+import { publicAxios } from '../util/axios'
 
 function Landing() {
     const { isLoading, error, data } = useQuery(

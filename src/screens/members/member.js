@@ -4,18 +4,15 @@ import { useQuery } from 'react-query'
 import { Container, Message, Item } from 'semantic-ui-react'
 import { FullPageSpinner } from '../../components'
 import FourOFour from '../four-o-four'
-import { useFetch } from '../../context/fetch-context'
+import { useAxios } from '../../context/axios-context'
 
 function Member() {
-    const { authAxios } = useFetch()
+    const axios = useAxios()
     const { memberId } = useParams()
 
     const { isLoading, error, data } = useQuery(
-        ['members', { id: parseInt(memberId) }],
-        () =>
-            authAxios
-                .get(`/members/${memberId}`)
-                .then(response => response.data)
+        ['members', { id: memberId }],
+        () => axios.get(`/members/${memberId}`).then(response => response.data)
     )
 
     if (isLoading) {

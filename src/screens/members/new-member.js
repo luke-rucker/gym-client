@@ -9,15 +9,15 @@ import {
     Button,
     Message,
 } from 'semantic-ui-react'
-import { useFetch } from '../../context/fetch-context'
+import { useAxios } from '../../context/axios-context'
 
 function NewMember() {
-    const { authAxios } = useFetch()
+    const axios = useAxios()
     const history = useHistory()
     const queryClient = useQueryClient()
 
     const mutation = useMutation(
-        newMember => authAxios.post('/members', newMember),
+        newMember => axios.post('/members', newMember),
         {
             onSuccess: (data, variables, context) => {
                 queryClient.invalidateQueries('members')

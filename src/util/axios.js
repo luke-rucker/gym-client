@@ -4,4 +4,4 @@ const publicAxios = axios.create({
     baseURL: '/api',
 })
 
-export default publicAxios
+export { publicAxios }
