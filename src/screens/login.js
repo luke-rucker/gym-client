@@ -26,7 +26,7 @@ function Login() {
                 password: password.value,
             })
 
-            await queryClient.prefetchQuery('me', () =>
+            await queryClient.fetchQuery('me', () =>
                 axios.get('/users/me').then(response => response.data)
             )
 
