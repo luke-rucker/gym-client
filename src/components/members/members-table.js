@@ -63,11 +63,13 @@ function MembersTable({ members }) {
                     )}
                 </Table.Body>
             </Table>
-            <Pagination
-                activePage={page + 1}
-                onPageChange={handlePageChange}
-                totalPages={Math.ceil(members.length / rowsPerPage)}
-            />
+            <div style={{ textAlign: 'center' }}>
+                <Pagination
+                    activePage={page + 1}
+                    onPageChange={handlePageChange}
+                    totalPages={Math.ceil(members.length / rowsPerPage)}
+                />
+            </div>
         </>
     )
 }
