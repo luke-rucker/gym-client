@@ -12,6 +12,7 @@ import FourOFour from './screens/four-o-four'
 
 const Dashboard = lazy(() => import('./screens/dashboard'))
 const Members = lazy(() => import('./screens/members'))
+const Sessions = lazy(() => import('./screens/sessions'))
 const Admin = lazy(() => import('./screens/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
@@ -64,6 +65,9 @@ function App() {
                 </AuthenticatedRoute>
                 <AuthenticatedRoute path="/members">
                     <Members />
+                </AuthenticatedRoute>
+                <AuthenticatedRoute path="/sessions">
+                    <Sessions />
                 </AuthenticatedRoute>
                 <AdminRoute path="/admin">
                     <Admin />

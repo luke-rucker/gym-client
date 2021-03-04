@@ -18,6 +18,11 @@ function AppBar() {
             rolesAllowed: ['USER', 'ADMIN'],
         },
         {
+            name: 'Sessions',
+            onClick: () => history.push('/sessions'),
+            rolesAllowed: ['USER', 'ADMIN'],
+        },
+        {
             name: 'Admin',
             onClick: () => history.push('/admin'),
             rolesAllowed: ['ADMIN'],

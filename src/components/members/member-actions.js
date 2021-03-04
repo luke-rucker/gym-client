@@ -10,11 +10,11 @@ function MemberActions({ memberId }) {
 
     const actions = [
         {
-            Action: EditMember,
+            render: () => <EditMember key="edit" memberId={memberId} />,
             rolesAllowed: ['USER', 'ADMIN'],
         },
         {
-            Action: DeleteMember,
+            render: () => <DeleteMember key="delete" memberId={memberId} />,
             rolesAllowed: ['ADMIN'],
         },
     ]
@@ -23,9 +23,7 @@ function MemberActions({ memberId }) {
         <>
             {actions
                 .filter(action => action.rolesAllowed.includes(user.role))
-                .map((Action, index) => (
-                    <Action.Action key={index} memberId={memberId} />
-                ))}
+                .map(action => action.render())}
         </>
     )
 }
