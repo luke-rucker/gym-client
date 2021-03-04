@@ -21,8 +21,8 @@ function TimeLeft({ start, duration }) {
             const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
             const minutes = Math.floor((difference / 1000 / 60) % 60)
 
-            const hourLabel = hours > 1 ? 'hours' : 'hour'
-            const minuteLabel = minutes > 1 ? 'minutes' : 'minute'
+            const hourLabel = hours === 1 ? 'hour' : 'hours'
+            const minuteLabel = minutes === 1 ? 'minute' : 'minutes'
 
             return {
                 [hourLabel]: hours,
