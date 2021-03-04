@@ -24,7 +24,7 @@ function UserProvider({ children }) {
     }
 
     if (error) {
-        return <FullPageErrorFallback error={error} />
+        return <FullPageErrorFallback message={error.response.data.message} />
     }
 
     function isAdmin() {

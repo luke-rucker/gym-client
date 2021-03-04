@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Container, Message, Icon } from 'semantic-ui-react'
 
-function FullPageErrorFallback({ error }) {
+function FullPageErrorFallback({ message }) {
     return (
         <Grid style={{ height: '100vh' }} verticalAlign="middle">
             <Grid.Column>
@@ -11,7 +11,7 @@ function FullPageErrorFallback({ error }) {
                             <Icon name="frown outline" size="big" />
                             Uh oh! There's a problem...
                         </Message.Header>
-                        <p>{error.message}</p>
+                        <p>{message}</p>
                     </Message>
                 </Container>
             </Grid.Column>
