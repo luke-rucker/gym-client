@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Statistic, Grid, Button, Icon, Table } from 'semantic-ui-react'
-import { FullPageErrorFallback, FullPageSpinner } from '../components'
+import { FullPageErrorFallback, FullPageSpinner, TimeLeft } from '../components'
 import { useAxios } from '../context/axios-context'
 
 function Dashboard() {
@@ -56,7 +56,8 @@ function Dashboard() {
                             <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
                             <Table.Cell>
                                 <TimeLeft
-                                    sessionStart={new Date(session.start)}
+                                    start={new Date(session.start)}
+                                    duration={1000 * 60 * 60 * 1.5} // 1.5 hours in milliseconds
                                 />
                             </Table.Cell>
                             <Table.Cell textAlign="right">
@@ -68,10 +69,6 @@ function Dashboard() {
             </Table>
         </>
     )
-}
-
-function TimeLeft({ sessionStart }) {
-    return <span>{sessionStart.toString()}</span>
 }
 
 export default Dashboard
