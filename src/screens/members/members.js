@@ -6,70 +6,70 @@ import { FullPageSpinner, MembersTable } from '../../components'
 import { useAxios } from '../../context/axios-context'
 
 function Members() {
-    const history = useHistory()
-    const axios = useAxios()
+  const history = useHistory()
+  const axios = useAxios()
 
-    const { isLoading, error, data } = useQuery('members', () =>
-        axios.get('/members').then(response => response.data)
+  const { isLoading, error, data } = useQuery('members', () =>
+    axios.get('/members').then(response => response.data)
+  )
+
+  const [query, setQuery] = React.useState('')
+
+  function filter(members) {
+    if (!query) {
+      return members
+    }
+
+    return members.filter(
+      member =>
+        `${member.firstName} ${member.lastName} ${member.email}`
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) >= 0
     )
+  }
 
-    const [query, setQuery] = React.useState('')
+  if (isLoading) {
+    return <FullPageSpinner />
+  }
 
-    function filter(members) {
-        if (!query) {
-            return members
-        }
-
-        return members.filter(
-            member =>
-                `${member.firstName} ${member.lastName} ${member.email}`
-                    .toLowerCase()
-                    .indexOf(query.toLowerCase()) >= 0
-        )
-    }
-
-    if (isLoading) {
-        return <FullPageSpinner />
-    }
-
-    if (error) {
-        return (
-            <Container text>
-                <Message negative>
-                    <Message.Header>Error</Message.Header>
-                    {error.response.data.message || 'Could not load members.'}
-                </Message>
-            </Container>
-        )
-    }
-
+  if (error) {
     return (
-        <>
-            <Grid>
-                <Grid.Column width={4}>
-                    <Form.Input
-                        icon="search"
-                        placeholder="Find a member..."
-                        onChange={e => setQuery(e.target.value)}
-                        value={query}
-                    />
-                </Grid.Column>
-                <Grid.Column width={2} floated="right">
-                    <Button
-                        floated="right"
-                        icon
-                        labelPosition="left"
-                        color="green"
-                        onClick={() => history.push('/members/new')}
-                    >
-                        <Icon name="user" />
-                        New
-                    </Button>
-                </Grid.Column>
-            </Grid>
-            <MembersTable members={filter(data)} />
-        </>
+      <Container text>
+        <Message negative>
+          <Message.Header>Error</Message.Header>
+          {error.response.data.message || 'Could not load members.'}
+        </Message>
+      </Container>
     )
+  }
+
+  return (
+    <>
+      <Grid>
+        <Grid.Column width={4}>
+          <Form.Input
+            icon="search"
+            placeholder="Find a member..."
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+          />
+        </Grid.Column>
+        <Grid.Column width={2} floated="right">
+          <Button
+            floated="right"
+            icon
+            labelPosition="left"
+            color="green"
+            onClick={() => history.push('/members/new')}
+          >
+            <Icon name="user" />
+            New
+          </Button>
+        </Grid.Column>
+      </Grid>
+      <MembersTable members={filter(data)} />
+    </>
+  )
 }
 
 export default Members

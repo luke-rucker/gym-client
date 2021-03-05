@@ -8,38 +8,38 @@ const UserContext = React.createContext()
 const { Provider } = UserContext
 
 function UserProvider({ children }) {
-    const auth = useAuth()
-    const axios = useAxios()
+  const auth = useAuth()
+  const axios = useAxios()
 
-    const { isLoading, error, data } = useQuery(
-        'me',
-        () => axios.get('/users/me').then(response => response.data),
-        {
-            enabled: auth.isAuthenticated(),
-        }
-    )
-
-    if (isLoading) {
-        return <FullPageSpinner />
+  const { isLoading, error, data } = useQuery(
+    'me',
+    () => axios.get('/users/me').then(response => response.data),
+    {
+      enabled: auth.isAuthenticated(),
     }
+  )
 
-    if (error) {
-        return <FullPageErrorFallback message={error.response.data.message} />
-    }
+  if (isLoading) {
+    return <FullPageSpinner />
+  }
 
-    function isAdmin() {
-        return data.role === 'ADMIN'
-    }
+  if (error) {
+    return <FullPageErrorFallback message={error.response.data.message} />
+  }
 
-    return <Provider value={{ ...data, isAdmin }}>{children}</Provider>
+  function isAdmin() {
+    return data.role === 'ADMIN'
+  }
+
+  return <Provider value={{ ...data, isAdmin }}>{children}</Provider>
 }
 
 function useUser() {
-    const context = React.useContext(UserContext)
-    if (context === undefined) {
-        throw new Error('useUser must be used within a UserProvider')
-    }
-    return context
+  const context = React.useContext(UserContext)
+  if (context === undefined) {
+    throw new Error('useUser must be used within a UserProvider')
+  }
+  return context
 }
 
 export { UserProvider, useUser }

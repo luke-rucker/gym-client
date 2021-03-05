@@ -5,8 +5,8 @@ import App from './app'
 import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
-    <AppProviders>
-        <App />
-    </AppProviders>,
-    document.getElementById('root')
+  <AppProviders>
+    <App />
+  </AppProviders>,
+  document.getElementById('root')
 )
