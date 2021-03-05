@@ -24,7 +24,7 @@ function CheckInMember({ style }) {
   )
 
   const checkInMember = useMutation(
-    member => axios.post(`/members/${member}/sessions`),
+    memberId => axios.post(`/members/${memberId}/sessions`),
     {
       onError: error => {
         setErrorMessage(

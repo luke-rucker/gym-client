@@ -1,10 +1,11 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Statistic, Button, Table, Icon } from 'semantic-ui-react'
+import { Statistic, Table } from 'semantic-ui-react'
 import {
   FullPageErrorFallback,
   FullPageSpinner,
   CheckInMember,
+  CheckOutMember,
   TimeLeft,
 } from '../components'
 import { useAxios } from '../context/axios-context'
@@ -13,7 +14,9 @@ function Dashboard() {
   const axios = useAxios()
 
   const activeSessions = useQuery(['sessions', { status: 'active' }], () =>
-    axios.get('/sessions/?status=active').then(response => response.data)
+    axios
+      .get('/sessions', { params: { status: 'active' } })
+      .then(response => response.data)
   )
 
   if (activeSessions.isLoading) {
@@ -56,9 +59,7 @@ function Dashboard() {
                 />
               </Table.Cell>
               <Table.Cell textAlign="right">
-                <Button icon>
-                  <Icon name="delete" />
-                </Button>
+                <CheckOutMember sessionId={session.id} />
               </Table.Cell>
             </Table.Row>
           ))}
