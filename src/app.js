@@ -12,68 +12,72 @@ import FourOFour from './screens/four-o-four'
 
 const Dashboard = lazy(() => import('./screens/dashboard'))
 const Members = lazy(() => import('./screens/members'))
+const Sessions = lazy(() => import('./screens/sessions'))
 const Admin = lazy(() => import('./screens/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
-    const auth = useAuth()
+  const auth = useAuth()
 
-    return (
-        <Route
-            {...rest}
-            render={() =>
-                auth.isAuthenticated() ? (
-                    <AppShell>{children}</AppShell>
-                ) : (
-                    <Redirect to="/login" />
-                )
-            }
-        ></Route>
-    )
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        auth.isAuthenticated() ? (
+          <AppShell>{children}</AppShell>
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    ></Route>
+  )
 }
 
 function AdminRoute({ children, ...rest }) {
-    const auth = useAuth()
-    const user = useUser()
+  const auth = useAuth()
+  const user = useUser()
 
-    return (
-        <Route
-            {...rest}
-            render={() =>
-                auth.isAuthenticated() && user.isAdmin() ? (
-                    <AppShell>{children}</AppShell>
-                ) : (
-                    <Redirect to="/dashboard" />
-                )
-            }
-        ></Route>
-    )
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        auth.isAuthenticated() && user.isAdmin() ? (
+          <AppShell>{children}</AppShell>
+        ) : (
+          <Redirect to="/dashboard" />
+        )
+      }
+    ></Route>
+  )
 }
 
 function App() {
-    return (
-        <Suspense fallback={<FullPageSpinner />}>
-            <Switch>
-                <Route exact path="/">
-                    <Landing />
-                </Route>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <AuthenticatedRoute path="/dashboard">
-                    <Dashboard />
-                </AuthenticatedRoute>
-                <AuthenticatedRoute path="/members">
-                    <Members />
-                </AuthenticatedRoute>
-                <AdminRoute path="/admin">
-                    <Admin />
-                </AdminRoute>
-                <Route path="*">
-                    <FourOFour />
-                </Route>
-            </Switch>
-        </Suspense>
-    )
+  return (
+    <Suspense fallback={<FullPageSpinner />}>
+      <Switch>
+        <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <AuthenticatedRoute path="/dashboard">
+          <Dashboard />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/members">
+          <Members />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/sessions">
+          <Sessions />
+        </AuthenticatedRoute>
+        <AdminRoute path="/admin">
+          <Admin />
+        </AdminRoute>
+        <Route path="*">
+          <FourOFour />
+        </Route>
+      </Switch>
+    </Suspense>
+  )
 }
 
 export default App

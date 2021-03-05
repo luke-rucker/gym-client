@@ -7,83 +7,79 @@ import { useAuth } from '../../context/auth-context'
 import { useUser } from '../../context/user-context'
 
 function AppBar() {
-    const history = useHistory()
-    const auth = useAuth()
-    const user = useUser()
+  const history = useHistory()
+  const auth = useAuth()
+  const user = useUser()
 
-    const menuItems = [
-        {
-            name: 'Members',
-            onClick: () => history.push('/members'),
-            rolesAllowed: ['USER', 'ADMIN'],
-        },
-        {
-            name: 'Admin',
-            onClick: () => history.push('/admin'),
-            rolesAllowed: ['ADMIN'],
-        },
-    ]
+  const menuItems = [
+    {
+      name: 'Members',
+      onClick: () => history.push('/members'),
+      rolesAllowed: ['USER', 'ADMIN'],
+    },
+    {
+      name: 'Sessions',
+      onClick: () => history.push('/sessions'),
+      rolesAllowed: ['USER', 'ADMIN'],
+    },
+    {
+      name: 'Admin',
+      onClick: () => history.push('/admin'),
+      rolesAllowed: ['ADMIN'],
+    },
+  ]
 
-    return (
-        <>
-            <Menu borderless>
-                <Menu.Item
-                    onClick={() =>
-                        history.push(
-                            auth.isAuthenticated() ? '/dashboard' : '/'
-                        )
-                    }
-                    header
-                >
-                    <Image size="mini" src="/icon.svg" alt="logo" />
-                    <div style={{ paddingLeft: '4px' }}>
-                        Jacobs University Gym
-                    </div>
+  return (
+    <>
+      <Menu borderless>
+        <Menu.Item
+          onClick={() =>
+            history.push(auth.isAuthenticated() ? '/dashboard' : '/')
+          }
+          header
+        >
+          <Image size="mini" src="/icon.svg" alt="logo" />
+          <div style={{ paddingLeft: '4px' }}>Jacobs University Gym</div>
+        </Menu.Item>
+        {auth.isAuthenticated() ? (
+          <>
+            {menuItems
+              .filter(menuItem => menuItem.rolesAllowed.includes(user.role))
+              .map(menuItem => (
+                <Menu.Item onClick={menuItem.onClick} key={menuItem.name}>
+                  {menuItem.name}
                 </Menu.Item>
-                {auth.isAuthenticated() ? (
-                    <>
-                        {menuItems
-                            .filter(menuItem =>
-                                menuItem.rolesAllowed.includes(user.role)
-                            )
-                            .map(menuItem => (
-                                <Menu.Item
-                                    onClick={menuItem.onClick}
-                                    key={menuItem.name}
-                                >
-                                    {menuItem.name}
-                                </Menu.Item>
-                            ))}
-                        <Menu.Menu
-                            position="right"
-                            style={{
-                                margin: 'auto 0',
-                            }}
-                        >
-                            <Menu.Item>
-                                <NewDropdown />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <AvatarDropdown />
-                            </Menu.Item>
-                        </Menu.Menu>
-                    </>
-                ) : (
-                    <Menu.Item position="right">
-                        <Button
-                            style={{
-                                backgroundColor: '#004180',
-                                color: 'white',
-                            }}
-                            onClick={() => history.push('/login')}
-                        >
-                            Login
-                        </Button>
-                    </Menu.Item>
-                )}
-            </Menu>
-        </>
-    )
+              ))}
+            <Menu.Menu
+              position="right"
+              style={{
+                margin: 'auto 0',
+              }}
+            >
+              <Menu.Item>
+                <NewDropdown />
+              </Menu.Item>
+              <Menu.Item>
+                <AvatarDropdown />
+              </Menu.Item>
+            </Menu.Menu>
+          </>
+        ) : (
+          <Menu.Item position="right">
+            <Button
+              style={{
+                backgroundColor: '#004180',
+                color: 'white',
+              }}
+              onClick={() => history.push('/login')}
+            >
+              Login
+            </Button>
+          </Menu.Item>
+        )}
+      </Menu>
+    </>
+  )
 }
 
 export default AppBar
