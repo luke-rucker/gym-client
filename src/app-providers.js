@@ -13,7 +13,6 @@ function AppProviders({ children }) {
       queries: {
         retry: function (failureCount, error) {
           if (error?.response?.status === 404) return false
-          else if (error?.response?.status === 401) return false
           else if (failureCount < 2) return true
           else return false
         },

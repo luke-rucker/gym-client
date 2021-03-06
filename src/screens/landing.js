@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { Container, Message, Header } from 'semantic-ui-react'
 import { FullPageSpinner, AppBar } from '../components'
 import { useAuth } from '../context/auth-context'
-import { publicAxios } from '../util/axios'
+import { publicAxios } from '../util'
 
 function Landing() {
   const auth = useAuth()

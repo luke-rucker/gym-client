@@ -67,7 +67,11 @@ function CheckInMember({ style }) {
             value={selectedMember}
             onChange={(e, { value }) => setSelectedMember(value)}
           />
-          <Form.Button type="submit" color="green">
+          <Form.Button
+            type="submit"
+            color="green"
+            loading={checkInMember.isLoading}
+          >
             Check in
           </Form.Button>
         </Form.Group>

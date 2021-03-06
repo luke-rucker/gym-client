@@ -1,4 +1,5 @@
 import React from 'react'
+import { msToHoursAndMinutes } from '../util'
 
 function TimeLeft({ start, duration }) {
   const [timeLeft, setTimeLeft] = React.useState(
@@ -18,16 +19,7 @@ function TimeLeft({ start, duration }) {
     const difference = finish - Date.now()
 
     if (difference > 0) {
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
-      const minutes = Math.floor((difference / 1000 / 60) % 60)
-
-      const hourLabel = hours === 1 ? 'hour' : 'hours'
-      const minuteLabel = minutes === 1 ? 'minute' : 'minutes'
-
-      return {
-        [hourLabel]: hours,
-        [minuteLabel]: minutes,
-      }
+      return msToHoursAndMinutes(difference)
     }
     return {}
   }

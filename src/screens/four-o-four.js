@@ -1,31 +1,12 @@
 import React from 'react'
-import { Grid, Container, Icon, Header } from 'semantic-ui-react'
-import { AppBar } from '../components'
-import { useAuth } from '../context/auth-context'
+import { Grid, Container, Header } from 'semantic-ui-react'
 
 function FourOFour() {
-  const { isAuthenticated } = useAuth()
-
   return (
-    <>
-      {isAuthenticated() ? (
-        <FourOFourMessage />
-      ) : (
-        <>
-          <AppBar />
-          <FourOFourMessage />
-        </>
-      )}
-    </>
-  )
-}
-
-function FourOFourMessage() {
-  return (
-    <Grid style={{ height: '90vh' }} verticalAlign="middle">
+    <Grid style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column>
         <Container text textAlign="center">
-          <Icon name="frown outline" size="huge" />
+          <Header size="huge">404</Header>
           <Header size="huge">You look lost!</Header>
         </Container>
       </Grid.Column>
