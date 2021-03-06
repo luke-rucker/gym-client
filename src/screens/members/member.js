@@ -45,7 +45,7 @@ function Member() {
     {
       menuItem: 'Sessions',
       render: () => (
-        <Tab.Pane attached={false} loading={memberSessions.isLoading}>
+        <Tab.Pane loading={memberSessions.isLoading}>
           <MemberSessions
             sessions={memberSessions.data}
             error={memberSessions.error}
@@ -56,7 +56,7 @@ function Member() {
     {
       menuItem: 'Memberships',
       render: () => (
-        <Tab.Pane attached={false}>
+        <Tab.Pane>
           <MemberMemberships />
         </Tab.Pane>
       ),
@@ -79,7 +79,7 @@ function Member() {
           </Item.Content>
         </Item>
       </Item.Group>
-      <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+      <Tab panes={panes} />
     </>
   )
 }

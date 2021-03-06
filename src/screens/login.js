@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Button, Form, Grid, Image, Segment, Message } from 'semantic-ui-react'
 import { useAuth } from '../context/auth-context'
-import { publicAxios } from '../util/axios'
+import { publicAxios } from '../util'
 
 function Login() {
   const auth = useAuth()

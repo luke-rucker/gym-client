@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
-import { publicAxios } from '../util/axios'
+import { publicAxios } from '../util'
 
 const AuthContext = React.createContext()
 const { Provider } = AuthContext
