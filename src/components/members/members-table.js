@@ -17,45 +17,47 @@ function MembersTable({ members }) {
   )
 
   return (
-    <>
-      <Table selectable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Email</Table.HeaderCell>
-            <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        {rows.length > 0 && (
-          <Table.Body>
-            {rows.map(member => (
-              <Table.Row key={member.id}>
-                <Table.Cell
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => history.push(`/members/${member.id}`)}
-                >{`${member.firstName} ${member.lastName}`}</Table.Cell>
-                <Table.Cell
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => history.push(`/members/${member.id}`)}
-                >
-                  {member.email}
-                </Table.Cell>
-                <Table.Cell textAlign="right">
-                  <MemberActions memberId={member.id} />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        )}
-      </Table>
-      <div style={{ textAlign: 'center' }}>
-        <Pagination
-          activePage={page + 1}
-          onPageChange={handlePageChange}
-          totalPages={Math.ceil(members.length / rowsPerPage)}
-        />
-      </div>
-    </>
+    <Table selectable>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Email</Table.HeaderCell>
+          <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      {rows.length > 0 && (
+        <Table.Body>
+          {rows.map(member => (
+            <Table.Row key={member.id}>
+              <Table.Cell
+                style={{ cursor: 'pointer' }}
+                onClick={() => history.push(`/members/${member.id}`)}
+              >{`${member.firstName} ${member.lastName}`}</Table.Cell>
+              <Table.Cell
+                style={{ cursor: 'pointer' }}
+                onClick={() => history.push(`/members/${member.id}`)}
+              >
+                {member.email}
+              </Table.Cell>
+              <Table.Cell textAlign="right">
+                <MemberActions memberId={member.id} />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      )}
+      <Table.Footer>
+        <Table.Row>
+          <Table.HeaderCell colSpan="3" textAlign="center">
+            <Pagination
+              activePage={page + 1}
+              onPageChange={handlePageChange}
+              totalPages={Math.ceil(members.length / rowsPerPage)}
+            />
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Footer>
+    </Table>
   )
 }
 
