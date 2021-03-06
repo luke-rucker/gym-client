@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
-import { ErrorMessage } from '../../components'
-import { msToHoursAndMinutes } from '../../util'
+import { ErrorMessage, SessionDuration } from '../../components'
 
 function MemberSessions({ sessions, error }) {
   if (error) {
@@ -23,34 +22,13 @@ function MemberSessions({ sessions, error }) {
             <Table.Cell>{new Date(session.start).toLocaleString()}</Table.Cell>
             <Table.Cell>{new Date(session.finish).toLocaleString()}</Table.Cell>
             <Table.Cell>
-              <Duration session={session} />
+              <SessionDuration session={session} />
             </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
     </Table>
   )
-}
-
-function Duration({ session }) {
-  const durationInMs = new Date(session.finish) - new Date(session.start)
-  const duration = msToHoursAndMinutes(durationInMs)
-
-  const timeComponents = []
-
-  Object.keys(duration).forEach(interval => {
-    if (!duration[interval]) {
-      return
-    }
-
-    timeComponents.push(
-      <span key={interval}>
-        {duration[interval]} {interval}{' '}
-      </span>
-    )
-  })
-
-  return <>{timeComponents}</>
 }
 
 export default MemberSessions
