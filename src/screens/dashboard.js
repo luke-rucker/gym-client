@@ -15,7 +15,7 @@ function Dashboard() {
 
   const activeSessions = useQuery(['sessions', { status: 'active' }], () =>
     axios
-      .get('/sessions', { params: { status: 'active' } })
+      .get('/sessions', { params: { status: 'active', sort: 'asc' } })
       .then(response => response.data)
   )
 

@@ -2,6 +2,10 @@ import React from 'react'
 import { msToHoursAndMinutes } from '../util'
 
 function SessionDuration({ session }) {
+  if (!session.finish) {
+    session.finish = new Date()
+  }
+
   const durationInMs = new Date(session.finish) - new Date(session.start)
   const duration = msToHoursAndMinutes(durationInMs)
 
