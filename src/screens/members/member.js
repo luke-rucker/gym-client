@@ -1,9 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Container, Message, Item, Tab } from 'semantic-ui-react'
+import { Container, Item, Tab } from 'semantic-ui-react'
 import {
   FullPageSpinner,
+  ErrorMessage,
   MemberMemberships,
   MemberSessions,
 } from '../../components'
@@ -31,11 +32,12 @@ function Member() {
     } else {
       return (
         <Container text>
-          <Message negative>
-            <Message.Header>Error</Message.Header>
-            {member.error.response.data.message ||
-              'Could not load the requested member.'}
-          </Message>
+          <ErrorMessage
+            message={
+              member.error.response.data.message ||
+              'Could not load the requested member.'
+            }
+          />
         </Container>
       )
     }
