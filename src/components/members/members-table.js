@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, Pagination } from 'semantic-ui-react'
+import { Table, Icon, Pagination } from 'semantic-ui-react'
 import MemberActions from './member-actions'
 
 function MembersTable({ members }) {
@@ -25,9 +25,9 @@ function MembersTable({ members }) {
           <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
-      {rows.length > 0 && (
-        <Table.Body>
-          {rows.map(member => (
+      <Table.Body>
+        {rows.length > 0 ? (
+          rows.map(member => (
             <Table.Row key={member.id}>
               <Table.Cell
                 style={{ cursor: 'pointer' }}
@@ -43,9 +43,16 @@ function MembersTable({ members }) {
                 <MemberActions memberId={member.id} />
               </Table.Cell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      )}
+          ))
+        ) : (
+          <Table.Row>
+            <Table.Cell colSpan="3" textAlign="center">
+              <Icon name="attention" />
+              The gym has no members.
+            </Table.Cell>
+          </Table.Row>
+        )}
+      </Table.Body>
       <Table.Footer>
         <Table.Row>
           <Table.HeaderCell colSpan="3" textAlign="center">
