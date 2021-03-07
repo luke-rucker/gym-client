@@ -42,16 +42,29 @@ function Sessions() {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(session => (
-          <Table.Row key={session.id}>
-            <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
-            <Table.Cell>{new Date(session.start).toLocaleString()}</Table.Cell>
-            <Table.Cell>{new Date(session.finish).toLocaleString()}</Table.Cell>
-            <Table.Cell textAlign="right">
-              <SessionDuration session={session} />
+        {data.length > 0 ? (
+          data.map(session => (
+            <Table.Row key={session.id}>
+              <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
+              <Table.Cell>
+                {new Date(session.start).toLocaleString()}
+              </Table.Cell>
+              <Table.Cell>
+                {new Date(session.finish).toLocaleString()}
+              </Table.Cell>
+              <Table.Cell textAlign="right">
+                <SessionDuration session={session} />
+              </Table.Cell>
+            </Table.Row>
+          ))
+        ) : (
+          <Table.Row>
+            <Table.Cell colSpan="4" textAlign="center">
+              <Icon name="attention" />
+              No members have been in the gym.
             </Table.Cell>
           </Table.Row>
-        ))}
+        )}
       </Table.Body>
     </Table>
   )
