@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Statistic, Table } from 'semantic-ui-react'
+import { Statistic, Table, Icon } from 'semantic-ui-react'
 import {
   FullPageErrorFallback,
   FullPageSpinner,
@@ -49,20 +49,29 @@ function Dashboard() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {activeSessions.data.map(session => (
-            <Table.Row key={session.id}>
-              <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
-              <Table.Cell>
-                <TimeLeft
-                  start={new Date(session.start)}
-                  duration={1000 * 60 * 60 * 1.5} // 1.5 hours in milliseconds
-                />
-              </Table.Cell>
-              <Table.Cell textAlign="right">
-                <CheckOutMember sessionId={session.id} />
+          {activeSessions.data.length > 0 ? (
+            activeSessions.data.map(session => (
+              <Table.Row key={session.id}>
+                <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
+                <Table.Cell>
+                  <TimeLeft
+                    start={new Date(session.start)}
+                    duration={1000 * 60 * 60 * 1.5} // 1.5 hours in milliseconds
+                  />
+                </Table.Cell>
+                <Table.Cell textAlign="right">
+                  <CheckOutMember sessionId={session.id} />
+                </Table.Cell>
+              </Table.Row>
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell colSpan="3" textAlign="center">
+                <Icon name="attention" />
+                No members are in the gym.
               </Table.Cell>
             </Table.Row>
-          ))}
+          )}
         </Table.Body>
       </Table>
     </>
