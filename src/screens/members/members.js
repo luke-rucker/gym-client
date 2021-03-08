@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Grid, Button, Form, Icon, Container } from 'semantic-ui-react'
+import { Grid, Button, Form, Icon } from 'semantic-ui-react'
 import { FullPageSpinner, ErrorMessage, MembersTable } from '../../components'
 import { useAxios } from '../../context/axios-context'
 
@@ -51,11 +51,10 @@ function Members() {
 
   if (error) {
     return (
-      <Container text>
-        <ErrorMessage
-          message={error.response.data.message || 'Could not load members.'}
-        />
-      </Container>
+      <ErrorMessage
+        constrained
+        message={error.response.data.message || 'Could not load members.'}
+      />
     )
   }
 

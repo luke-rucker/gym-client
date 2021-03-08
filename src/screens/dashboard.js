@@ -13,29 +13,27 @@ import { useAxios } from '../context/axios-context'
 function Dashboard() {
   const axios = useAxios()
 
-  const activeSessions = useQuery(['sessions', { status: 'active' }], () =>
-    axios
-      .get('/sessions', { params: { status: 'active', sort: 'asc' } })
-      .then(response => response.data)
+  const { isLoading, error, data: activeSessions } = useQuery(
+    ['sessions', { status: 'active' }],
+    () =>
+      axios
+        .get('/sessions', { params: { status: 'active', sort: 'asc' } })
+        .then(response => response.data)
   )
 
-  if (activeSessions.isLoading) {
+  if (isLoading) {
     return <FullPageSpinner />
   }
 
-  if (activeSessions.error) {
-    return (
-      <FullPageErrorFallback
-        message={activeSessions.error.response.data.message}
-      />
-    )
+  if (error) {
+    return <FullPageErrorFallback message={error.response.data.message} />
   }
 
   return (
     <>
       <Statistic.Group widths="1">
         <Statistic>
-          <Statistic.Value>{activeSessions.data.length}/15</Statistic.Value>
+          <Statistic.Value>{activeSessions.length}/15</Statistic.Value>
           <Statistic.Label>Members in the Gym</Statistic.Label>
         </Statistic>
       </Statistic.Group>
@@ -49,8 +47,8 @@ function Dashboard() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {activeSessions.data.length > 0 ? (
-            activeSessions.data.map(session => (
+          {activeSessions.length > 0 ? (
+            activeSessions.map(session => (
               <Table.Row key={session.id}>
                 <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
                 <Table.Cell>
