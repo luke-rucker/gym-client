@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Table, Icon, Pagination } from 'semantic-ui-react'
+import { Table, Icon, Pagination, Image } from 'semantic-ui-react'
 import MemberActions from './member-actions'
 
 function MembersTable({ members }) {
@@ -30,7 +30,10 @@ function MembersTable({ members }) {
               <Table.Cell
                 style={{ cursor: 'pointer' }}
                 onClick={() => history.push(`/members/${member.id}`)}
-              >{`${member.firstName} ${member.lastName}`}</Table.Cell>
+              >
+                <Image src={member.profileImageUrl || '/avatar.png'} avatar />
+                <span>{`${member.firstName} ${member.lastName}`}</span>
+              </Table.Cell>
               <Table.Cell
                 style={{ cursor: 'pointer' }}
                 onClick={() => history.push(`/members/${member.id}`)}
