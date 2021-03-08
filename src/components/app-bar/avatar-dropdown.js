@@ -9,7 +9,11 @@ function AvatarDropdown() {
 
   const trigger = (
     <>
-      <Image avatar src={user.profileImageUrl} alt="profile image" />
+      <Image
+        avatar
+        src={user.profileImageUrl}
+        alt={`${user.firstName} ${user.lastName}'s Profile Image`}
+      />
       <span>{user.firstName}</span>
     </>
   )

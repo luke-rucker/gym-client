@@ -31,7 +31,11 @@ function MembersTable({ members }) {
                 style={{ cursor: 'pointer' }}
                 onClick={() => history.push(`/members/${member.id}`)}
               >
-                <Image src={member.profileImageUrl || '/avatar.png'} avatar />
+                <Image
+                  src={member.profileImageUrl || '/avatar.png'}
+                  alt={`${member.firstName} ${member.lastName}'s Profile Image`}
+                  avatar
+                />
                 <span>{`${member.firstName} ${member.lastName}`}</span>
               </Table.Cell>
               <Table.Cell
