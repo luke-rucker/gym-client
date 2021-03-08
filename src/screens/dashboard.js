@@ -53,6 +53,7 @@ function Dashboard() {
                 <Table.Cell>
                   <Image
                     src={session.member.profileImageUrl || '/avatar.png'}
+                    alt={`${session.member.firstName} ${session.member.lastName}'s Profile Image`}
                     avatar
                   />
                   <span>{`${session.member.firstName} ${session.member.lastName}`}</span>

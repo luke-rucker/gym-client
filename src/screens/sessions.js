@@ -46,6 +46,7 @@ function Sessions() {
                 <Link to={`/members/${session.member.id}`}>
                   <Image
                     src={session.member.profileImageUrl || '/avatar.png'}
+                    alt={`${session.member.firstName} ${session.member.lastName}'s Profile Image`}
                     avatar
                   />
                   <span style={{ color: 'black' }}>
