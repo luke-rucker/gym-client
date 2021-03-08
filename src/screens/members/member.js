@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Item, Tab } from 'semantic-ui-react'
+import { Item, Tab, Image } from 'semantic-ui-react'
 import {
   FullPageSpinner,
   ErrorMessage,
@@ -10,6 +10,7 @@ import {
 } from '../../components'
 import FourOFour from '../four-o-four'
 import { useAxios } from '../../context/axios-context'
+import MemberActions from '../../components/members/member-actions'
 
 function Member() {
   const axios = useAxios()
@@ -76,10 +77,32 @@ function Member() {
           />
           <Item.Content style={{ margin: 'auto 0' }}>
             <Item.Header>{`${member.data.firstName} ${member.data.lastName}`}</Item.Header>
-            <Item.Description>{`Email: ${member.data.email}`}</Item.Description>
+            <Item.Description>
+              <p>Email: {member.data.email}</p>
+            </Item.Description>
+            <Item.Meta>
+              <p>
+                Created by:{' '}
+                <Image
+                  src={member.data.createdBy.profileImageUrl || '/avatar.png'}
+                  alt={`${member.data.createdBy.firstName} ${member.data.createdBy.lastName}'s Profile Image`}
+                  avatar
+                />
+                {` ${member.data.createdBy.firstName} ${member.data.createdBy.lastName}`}
+              </p>
+              <p>
+                Created on: {new Date(member.data.createdAt).toLocaleString()}
+              </p>
+              <p>
+                Updated on: {new Date(member.data.updatedAt).toLocaleString()}
+              </p>
+            </Item.Meta>
           </Item.Content>
         </Item>
       </Item.Group>
+      <div style={{ float: 'right' }}>
+        <MemberActions memberId={member.data.id} />
+      </div>
       <Tab panes={panes} />
     </>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query'
 import { Button, Icon, Modal } from 'semantic-ui-react'
 import { ErrorModal } from '../index'
@@ -40,6 +41,7 @@ function DeleteMember({ memberId }) {
   const [confirmOpen, setConfirmOpen] = React.useState(false)
   const [errorOpen, setErrorOpen] = React.useState(false)
 
+  const history = useHistory()
   const axios = useAxios()
   const queryClient = useQueryClient()
 
@@ -52,6 +54,7 @@ function DeleteMember({ memberId }) {
     onSuccess: () => {
       setConfirmOpen(false)
       queryClient.invalidateQueries('members')
+      history.push('/members')
     },
   })
 
