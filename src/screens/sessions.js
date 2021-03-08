@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
-import { Table, Icon } from 'semantic-ui-react'
+import { Table, Icon, Image } from 'semantic-ui-react'
 import { FullPageSpinner, ErrorMessage, SessionDuration } from '../components'
 import { useAxios } from '../context/axios-context'
 
@@ -44,9 +44,13 @@ function Sessions() {
             <Table.Row key={session.id}>
               <Table.Cell>
                 <Link to={`/members/${session.member.id}`}>
-                  <p style={{ color: 'black' }}>
+                  <Image
+                    src={session.member.profileImageUrl || '/avatar.png'}
+                    avatar
+                  />
+                  <span style={{ color: 'black' }}>
                     {`${session.member.firstName} ${session.member.lastName}`}
-                  </p>
+                  </span>
                 </Link>
               </Table.Cell>
               <Table.Cell>
