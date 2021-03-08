@@ -1,10 +1,12 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { Button, Form, Grid, Image, Segment, Message } from 'semantic-ui-react'
 import { useAuth } from '../context/auth-context'
 import { publicAxios } from '../util'
 
 function Login() {
+  const history = useHistory()
+  const location = useLocation()
   const auth = useAuth()
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -24,6 +26,9 @@ function Login() {
 
       setErrorMessage('')
       auth.setAuthState(data)
+
+      const { from } = location.state || { from: { pathname: '/dashboard' } }
+      history.push(from)
     } catch (error) {
       setIsLoading(false)
       setErrorMessage(error.response.data.message)

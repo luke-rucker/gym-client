@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
 import { useAuth } from './context/auth-context'
 import { useUser } from './context/user-context'
 import { FullPageSpinner } from './components'
@@ -16,6 +16,7 @@ const Sessions = lazy(() => import('./screens/sessions'))
 const Admin = lazy(() => import('./screens/admin'))
 
 function AuthenticatedRoute({ children, ...rest }) {
+  const location = useLocation()
   const auth = useAuth()
 
   return (
@@ -25,7 +26,9 @@ function AuthenticatedRoute({ children, ...rest }) {
         auth.isAuthenticated() ? (
           <AppShell>{children}</AppShell>
         ) : (
-          <Redirect to="/login" />
+          <Redirect
+            to={{ pathname: '/login', state: { from: location.pathname } }}
+          />
         )
       }
     ></Route>
@@ -33,19 +36,28 @@ function AuthenticatedRoute({ children, ...rest }) {
 }
 
 function AdminRoute({ children, ...rest }) {
+  const location = useLocation()
   const auth = useAuth()
   const user = useUser()
 
   return (
     <Route
       {...rest}
-      render={() =>
-        auth.isAuthenticated() && user.isAdmin() ? (
-          <AppShell>{children}</AppShell>
-        ) : (
-          <Redirect to="/dashboard" />
-        )
-      }
+      render={() => {
+        if (!auth.isAuthenticated()) {
+          return (
+            <Redirect
+              to={{ pathname: '/login', state: { from: location.pathname } }}
+            />
+          )
+        } else {
+          return user.isAdmin() ? (
+            <AppShell>{children}</AppShell>
+          ) : (
+            <Redirect to="/dashboard" />
+          )
+        }
+      }}
     ></Route>
   )
 }
