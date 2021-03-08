@@ -8,8 +8,6 @@ function MembersTable({ members }) {
 
   const [page, setPage] = React.useState(0)
 
-  const handlePageChange = (e, { activePage }) => setPage(activePage - 1)
-
   const rowsPerPage = 10
   const rows = members.slice(
     page * rowsPerPage,
@@ -57,8 +55,8 @@ function MembersTable({ members }) {
         <Table.Row>
           <Table.HeaderCell colSpan="3" textAlign="center">
             <Pagination
-              activePage={page + 1}
-              onPageChange={handlePageChange}
+              activePage={page + 1} // Page state is zero indexed
+              onPageChange={(e, { activePage }) => setPage(activePage - 1)}
               totalPages={Math.ceil(members.length / rowsPerPage)}
             />
           </Table.HeaderCell>
