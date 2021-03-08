@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Statistic, Table, Icon } from 'semantic-ui-react'
+import { Statistic, Table, Icon, Image } from 'semantic-ui-react'
 import {
   FullPageErrorFallback,
   FullPageSpinner,
@@ -50,7 +50,13 @@ function Dashboard() {
           {activeSessions.length > 0 ? (
             activeSessions.map(session => (
               <Table.Row key={session.id}>
-                <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
+                <Table.Cell>
+                  <Image
+                    src={session.member.profileImageUrl || '/avatar.png'}
+                    avatar
+                  />
+                  <span>{`${session.member.firstName} ${session.member.lastName}`}</span>
+                </Table.Cell>
                 <Table.Cell>
                   <TimeLeft
                     start={new Date(session.start)}
