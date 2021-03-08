@@ -1,12 +1,9 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Table } from 'semantic-ui-react'
-import {
-  FullPageSpinner,
-  ErrorMessage,
-  SessionDuration,
-} from '../../components'
-import { useAxios } from '../../context/axios-context'
+import { Link } from 'react-router-dom'
+import { Table, Icon } from 'semantic-ui-react'
+import { FullPageSpinner, ErrorMessage, SessionDuration } from '../components'
+import { useAxios } from '../context/axios-context'
 
 function Sessions() {
   const axios = useAxios()
@@ -32,7 +29,7 @@ function Sessions() {
   }
 
   return (
-    <Table>
+    <Table selectable>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Member</Table.HeaderCell>
@@ -45,7 +42,13 @@ function Sessions() {
         {data.length > 0 ? (
           data.map(session => (
             <Table.Row key={session.id}>
-              <Table.Cell>{`${session.member.firstName} ${session.member.lastName}`}</Table.Cell>
+              <Table.Cell>
+                <Link to={`/members/${session.member.id}`}>
+                  <p style={{ color: 'black' }}>
+                    {`${session.member.firstName} ${session.member.lastName}`}
+                  </p>
+                </Link>
+              </Table.Cell>
               <Table.Cell>
                 {new Date(session.start).toLocaleString()}
               </Table.Cell>
@@ -61,7 +64,7 @@ function Sessions() {
           <Table.Row>
             <Table.Cell colSpan="4" textAlign="center">
               <Icon name="attention" />
-              No members have been in the gym.
+              No data.
             </Table.Cell>
           </Table.Row>
         )}

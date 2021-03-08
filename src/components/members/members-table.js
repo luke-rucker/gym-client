@@ -48,7 +48,7 @@ function MembersTable({ members }) {
           <Table.Row>
             <Table.Cell colSpan="3" textAlign="center">
               <Icon name="attention" />
-              The gym has no members.
+              No data.
             </Table.Cell>
           </Table.Row>
         )}
