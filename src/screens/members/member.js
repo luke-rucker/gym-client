@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Container, Item, Tab } from 'semantic-ui-react'
+import { Item, Tab } from 'semantic-ui-react'
 import {
   FullPageSpinner,
   ErrorMessage,
@@ -31,14 +31,13 @@ function Member() {
       return <FourOFour />
     } else {
       return (
-        <Container text>
-          <ErrorMessage
-            message={
-              member.error.response.data.message ||
-              'Could not load the requested member.'
-            }
-          />
-        </Container>
+        <ErrorMessage
+          constrained
+          message={
+            member.error.response.data.message ||
+            'Could not load the requested member.'
+          }
+        />
       )
     }
   }

@@ -1,22 +1,35 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Message, Grid, Button, Form, Icon, Container } from 'semantic-ui-react'
-import { FullPageSpinner, MembersTable } from '../../components'
+import { Grid, Button, Form, Icon } from 'semantic-ui-react'
+import { FullPageSpinner, ErrorMessage, MembersTable } from '../../components'
 import { useAxios } from '../../context/axios-context'
 
 function Members() {
   const history = useHistory()
+  const location = useLocation()
   const axios = useAxios()
 
-  const { isLoading, error, data } = useQuery('members', () =>
-    axios.get('/members').then(response => response.data)
-  )
+  const queryParam = new URLSearchParams(location.search)
+  const search = queryParam.get('search') || ''
 
-  const [query, setQuery] = React.useState('')
+  function handleSearchChange(e) {
+    const newSearch = e.target.value
+
+    if (!newSearch) {
+      queryParam.delete('search')
+    } else {
+      queryParam.set('search', newSearch)
+    }
+
+    history.push({
+      pathname: location.pathname,
+      search: queryParam.toString(),
+    })
+  }
 
   function filter(members) {
-    if (!query) {
+    if (!search) {
       return members
     }
 
@@ -24,9 +37,13 @@ function Members() {
       member =>
         `${member.firstName} ${member.lastName} ${member.email}`
           .toLowerCase()
-          .indexOf(query.toLowerCase()) >= 0
+          .indexOf(search.toLowerCase()) >= 0
     )
   }
+
+  const { isLoading, error, data } = useQuery('members', () =>
+    axios.get('/members').then(response => response.data)
+  )
 
   if (isLoading) {
     return <FullPageSpinner />
@@ -34,12 +51,10 @@ function Members() {
 
   if (error) {
     return (
-      <Container text>
-        <Message negative>
-          <Message.Header>Error</Message.Header>
-          {error.response.data.message || 'Could not load members.'}
-        </Message>
-      </Container>
+      <ErrorMessage
+        constrained
+        message={error.response.data.message || 'Could not load members.'}
+      />
     )
   }
 
@@ -50,8 +65,8 @@ function Members() {
           <Form.Input
             icon="search"
             placeholder="Find a member..."
-            onChange={e => setQuery(e.target.value)}
-            value={query}
+            onChange={handleSearchChange}
+            value={search}
           />
         </Grid.Column>
         <Grid.Column width={2} floated="right">
