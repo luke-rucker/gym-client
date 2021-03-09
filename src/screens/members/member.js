@@ -72,7 +72,11 @@ function Member() {
           <Item.Image
             size="medium"
             circular
-            src={member.data.profileImageUrl || '/avatar.png'}
+            src={
+              member.data.profileImage
+                ? `/api/images/members/${member.data.profileImage}`
+                : '/avatar.png'
+            }
             alt={`${member.data.firstName} ${member.data.lastName}'s Profile Image`}
           />
           <Item.Content style={{ margin: 'auto 0' }}>
@@ -84,7 +88,11 @@ function Member() {
               <p>
                 Created by:{' '}
                 <Image
-                  src={member.data.createdBy.profileImageUrl || '/avatar.png'}
+                  src={
+                    member.data.createdBy.profileImage
+                      ? `/api/images/users/${member.data.createdBy.profileImage}`
+                      : '/avatar.png'
+                  }
                   alt={`${member.data.createdBy.firstName} ${member.data.createdBy.lastName}'s Profile Image`}
                   avatar
                 />

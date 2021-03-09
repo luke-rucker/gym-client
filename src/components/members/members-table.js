@@ -32,7 +32,11 @@ function MembersTable({ members }) {
                 onClick={() => history.push(`/members/${member.id}`)}
               >
                 <Image
-                  src={member.profileImageUrl || '/avatar.png'}
+                  src={
+                    member.profileImage
+                      ? `/api/images/members/${member.profileImage}`
+                      : '/avatar.png'
+                  }
                   alt={`${member.firstName} ${member.lastName}'s Profile Image`}
                   avatar
                 />

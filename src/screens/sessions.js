@@ -45,7 +45,11 @@ function Sessions() {
               <Table.Cell>
                 <Link to={`/members/${session.member.id}`}>
                   <Image
-                    src={session.member.profileImageUrl || '/avatar.png'}
+                    src={
+                      session.member.profileImage
+                        ? `/api/images/members/${member.profileImage}`
+                        : '/avatar.png'
+                    }
                     alt={`${session.member.firstName} ${session.member.lastName}'s Profile Image`}
                     avatar
                   />
