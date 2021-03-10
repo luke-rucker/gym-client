@@ -74,7 +74,7 @@ function Member() {
             circular
             src={
               member.data.profileImage
-                ? `/api/images/members/${member.data.profileImage}`
+                ? `/api/images/${member.data.profileImage}`
                 : '/avatar.png'
             }
             alt={`${member.data.firstName} ${member.data.lastName}'s Profile Image`}

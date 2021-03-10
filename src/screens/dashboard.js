@@ -54,7 +54,7 @@ function Dashboard() {
                   <Image
                     src={
                       session.member.profileImage
-                        ? `/api/images/members/${member.profileImage}`
+                        ? `/api/images/${member.profileImage}`
                         : '/avatar.png'
                     }
                     alt={`${session.member.firstName} ${session.member.lastName}'s Profile Image`}

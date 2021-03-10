@@ -34,7 +34,7 @@ function MembersTable({ members }) {
                 <Image
                   src={
                     member.profileImage
-                      ? `/api/images/members/${member.profileImage}`
+                      ? `/api/images/${member.profileImage}`
                       : '/avatar.png'
                   }
                   alt={`${member.firstName} ${member.lastName}'s Profile Image`}
