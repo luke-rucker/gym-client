@@ -17,26 +17,32 @@ function NewMember() {
   const history = useHistory()
   const queryClient = useQueryClient()
 
-  const mutation = useMutation(newMember => axios.post('/members', newMember), {
-    onSuccess: data => {
-      queryClient.invalidateQueries('members')
-      history.push(`/members/${data.data.id}`)
-    },
-  })
+  const mutation = useMutation(
+    newMemberFormData => axios.post('/members', newMemberFormData),
+    {
+      onSuccess: data => {
+        queryClient.invalidateQueries('members')
+        history.push(`/members/${data.data.id}`)
+      },
+    }
+  )
+
+  const [fileInputKey, setFileInputKey] = React.useState(Date.now())
+  const [profileImageFile, setProfileImageFile] = React.useState(null)
 
   function handleSubmit(event) {
     event.preventDefault()
 
     const { firstName, lastName, email } = event.target.elements
-    mutation.mutate({
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value,
-    })
-  }
 
-  const [fileInputKey, setFileInputKey] = React.useState(Date.now())
-  const [profileImageFile, setProfileImageFile] = React.useState(null)
+    const formData = new FormData()
+    formData.append('firstName', firstName.value)
+    formData.append('lastName', lastName.value)
+    formData.append('email', email.value)
+    formData.append('profileImage', profileImageFile)
+
+    mutation.mutate(formData)
+  }
 
   return (
     <Container text>
