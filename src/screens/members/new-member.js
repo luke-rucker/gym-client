@@ -7,8 +7,9 @@ import {
   Divider,
   Form,
   Button,
-  Message,
+  Icon,
 } from 'semantic-ui-react'
+import { ErrorMessage } from '../../components'
 import { useAxios } from '../../context/axios-context'
 
 function NewMember() {
@@ -17,7 +18,7 @@ function NewMember() {
   const queryClient = useQueryClient()
 
   const mutation = useMutation(newMember => axios.post('/members', newMember), {
-    onSuccess: (data, variables, context) => {
+    onSuccess: data => {
       queryClient.invalidateQueries('members')
       history.push(`/members/${data.data.id}`)
     },
@@ -33,6 +34,9 @@ function NewMember() {
       email: email.value,
     })
   }
+
+  const [fileInputKey, setFileInputKey] = React.useState(Date.now())
+  const [profileImageFile, setProfileImageFile] = React.useState(null)
 
   return (
     <Container text>
@@ -62,12 +66,50 @@ function NewMember() {
           placeholder="Email"
           name="email"
         />
+        <Form.Field>
+          <label>Profile Image</label>
+          <span>
+            <Button
+              content="Choose File"
+              labelPosition="left"
+              icon="file"
+              htmlFor="profileImage"
+              type="button"
+              as="label"
+            />
+            {profileImageFile ? (
+              <span>
+                {profileImageFile.name}
+                <Icon
+                  name="cancel"
+                  onClick={() => {
+                    setFileInputKey(Date.now()) // Force a rerender of file input component
+                    setProfileImageFile(null)
+                  }}
+                  style={{ cursor: 'pointer' }}
+                />
+              </span>
+            ) : (
+              <span>No file chosen.</span>
+            )}
+          </span>
+          <Form.Input
+            style={{ display: 'none' }}
+            type="file"
+            accept="image/png,image/jpeg .png,.jpeg"
+            id="profileImage"
+            key={fileInputKey}
+            onChange={event => setProfileImageFile(event.target.files[0])}
+          />
+        </Form.Field>
         <Divider />
         {mutation.error && (
-          <Message negative>
-            {mutation.error.response.data.message ||
-              'Could not create new member.'}
-          </Message>
+          <ErrorMessage
+            message={
+              mutation.error.response.data.message ||
+              'Could not create new member.'
+            }
+          />
         )}
         <Button type="submit" color="green" loading={mutation.isLoading}>
           Create member
