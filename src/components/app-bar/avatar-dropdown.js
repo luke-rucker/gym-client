@@ -11,7 +11,9 @@ function AvatarDropdown() {
     <>
       <Image
         avatar
-        src={user.profileImageUrl}
+        src={
+          user.profileImage ? `/api/images/${user.profileImage}` : '/avatar.png'
+        }
         alt={`${user.firstName} ${user.lastName}'s Profile Image`}
       />
       <span>{user.firstName}</span>

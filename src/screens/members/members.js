@@ -13,8 +13,8 @@ function Members() {
   const queryParam = new URLSearchParams(location.search)
   const search = queryParam.get('search') || ''
 
-  function handleSearchChange(e) {
-    const newSearch = e.target.value
+  function handleSearchChange(event) {
+    const newSearch = event.target.value
 
     if (!newSearch) {
       queryParam.delete('search')
