@@ -6,10 +6,10 @@ function NewDropdown() {
   const history = useHistory()
 
   const trigger = (
-    <>
+    <span>
       <Icon name="plus" />
-      <span>New</span>
-    </>
+      New
+    </span>
   )
 
   return (
