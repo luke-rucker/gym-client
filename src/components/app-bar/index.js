@@ -31,7 +31,7 @@ function AppBar() {
 
   return (
     <>
-      <Menu borderless>
+      <Menu fixed="top" borderless>
         <Menu.Item
           onClick={() =>
             history.push(auth.isAuthenticated() ? '/dashboard' : '/')

@@ -8,7 +8,7 @@ function MemberSessions({ sessions, error }) {
   }
 
   return (
-    <Table>
+    <Table striped>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Start</Table.HeaderCell>

@@ -6,7 +6,7 @@ function AppShell({ children }) {
   return (
     <>
       <AppBar />
-      <main>
+      <main style={{ marginTop: '6em', paddingBottom: '2em' }}>
         <Container>{children}</Container>
       </main>
     </>

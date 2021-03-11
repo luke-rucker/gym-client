@@ -20,6 +20,7 @@ function MembersTable({ members }) {
         <Table.Row>
           <Table.HeaderCell>Name</Table.HeaderCell>
           <Table.HeaderCell>Email</Table.HeaderCell>
+          <Table.HeaderCell>Created</Table.HeaderCell>
           <Table.HeaderCell textAlign="right">Actions</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -48,6 +49,12 @@ function MembersTable({ members }) {
               >
                 {member.email}
               </Table.Cell>
+              <Table.Cell
+                style={{ cursor: 'pointer' }}
+                onClick={() => history.push(`/members/${member.id}`)}
+              >
+                {new Date(member.createdAt).toLocaleDateString()}
+              </Table.Cell>
               <Table.Cell textAlign="right">
                 <MemberActions memberId={member.id} />
               </Table.Cell>
@@ -55,7 +62,7 @@ function MembersTable({ members }) {
           ))
         ) : (
           <Table.Row>
-            <Table.Cell colSpan="3" textAlign="center">
+            <Table.Cell colSpan="4" textAlign="center">
               <Icon name="attention" />
               No data.
             </Table.Cell>
@@ -64,7 +71,7 @@ function MembersTable({ members }) {
       </Table.Body>
       <Table.Footer>
         <Table.Row>
-          <Table.HeaderCell colSpan="3" textAlign="center">
+          <Table.HeaderCell colSpan="4" textAlign="center">
             <Pagination
               activePage={page + 1} // Page state is zero indexed
               onPageChange={(e, { activePage }) => setPage(activePage - 1)}

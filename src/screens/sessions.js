@@ -47,7 +47,7 @@ function Sessions() {
                   <Image
                     src={
                       session.member.profileImage
-                        ? `/api/images/${member.profileImage}`
+                        ? `/api/images/${session.member.profileImage}`
                         : '/avatar.png'
                     }
                     alt={`${session.member.firstName} ${session.member.lastName}'s Profile Image`}
