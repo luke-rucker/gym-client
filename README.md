@@ -4,7 +4,7 @@
 
 ## About
 
-Homepage and admin site for Jacobs University's Gym.
+Admin site for Jacobs University's Gym.
 
 ## Stack:
 
