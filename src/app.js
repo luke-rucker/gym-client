@@ -3,10 +3,8 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
 import { useAuth } from './context/auth-context'
 import { useUser } from './context/user-context'
 import { FullPageSpinner } from './components'
-
 import AppShell from './app-shell'
 
-import Landing from './screens/landing'
 import Login from './screens/login'
 import FourOFour from './screens/four-o-four'
 
@@ -67,7 +65,7 @@ function App() {
     <Suspense fallback={<FullPageSpinner />}>
       <Switch>
         <Route exact path="/">
-          <Landing />
+          <Redirect to="/login" />
         </Route>
         <Route path="/login">
           <Login />
